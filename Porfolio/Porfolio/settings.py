@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'Eventify.apps.EventifyConfig'
+    'Eventify.apps.EventifyConfig',
+    'Payment.apps.PaymentConfig',
+    'Ticket.apps.TicketConfig',
+    'Review.apps.ReviewConfig',
 ]
 
 MIDDLEWARE = [
