@@ -4,6 +4,7 @@ types_genre = [
     ('P', 'Party'),
     ('E', 'Event'),
     ('S', 'Show'),
+    ('B', 'Bonfire'),
 ]
 
 
