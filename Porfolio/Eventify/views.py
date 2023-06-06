@@ -1,6 +1,6 @@
 import qrcode
 import io
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -17,6 +17,11 @@ def home(request):
 
 def event_create(request):
     form = EventForm()
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
     context = {
         'form': form
     }
