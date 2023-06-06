@@ -1,7 +1,15 @@
 {% extends 'main.html' %} {% block content %}
 <div>
-    <a href="{% url 'create-event' %}">Create Event</a>
-   <div id="events">
+   <a href="{% url 'create-event' %}">Create Event</a>
+   <div id="upcomming-events">
+      <h2>UPCOMING EVENTS</h2>
+      <p>
+         Prepare to immerse yourself in a world of excitement and wonder as we
+         bring together the finest artists, innovators, and visionaries from
+         around the globe. From captivating performances to thought-provoking
+         talks, this event will be a celebration of creativity, inspiration, and
+         human connection
+      </p>
       {% for event in events %}
       <div>
          <h2>{{event.start}}</h2>
