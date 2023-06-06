@@ -7,12 +7,20 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 from .forms import EventForm
+from .models import Event
 
 # Create your views here.
 
 
 def home(request):
-    return render(request, 'home.html')
+    evemts = Event.objects.all()
+    context = {'events': evemts}
+    return render(request, 'home.html', context)
+
+def eventpage(request, event):
+    data = Event.objects.get(name=event)
+    context = {'event': data}
+    return render(request, 'eventpage.html', context)
 
 
 def event_create(request):
@@ -22,10 +30,36 @@ def event_create(request):
         if form.is_valid:
             form.save()
             return redirect('home')
+        # return HttpResponse(form)
     context = {
         'form': form
     }
     return render(request, 'event-create.html', context)
+
+
+def event_update(request, event):
+    data = Event.objects.get(name=event)
+    form = EventForm(instance=data)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=data)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
+    context = {
+        'form': form
+    }
+    return render(request, 'event-create.html', context)
+
+
+def event_delete(request, event):
+    data = Event.objects.get(name=event)
+    if request.method == 'POST':
+        data.delete()
+        return redirect('home')
+    context = {
+        'form': data
+    }
+    return render(request, 'event-delete.html', context)
 
 
 def send_email_message(request):

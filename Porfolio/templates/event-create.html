@@ -1,5 +1,29 @@
-{% extends 'home.html' %} {% block content %}
-<form action="" method="POST">{{csrf_token}} {{form.as_p}}
-    <button type="submit">Submit</button>
-</form>
+{% extends 'main.html' %} {% block content %}
+<div>
+   <form action="" method="POST">
+      {%csrf_token%}
+      {{form.as_p}}
+      <!-- <label for="name">Name: </label>
+      <input type="text" placeholder="Event Name" name="name" />
+      <br />
+      <label for="description">Description: </label>
+      <input type="text" name="description" placeholder="Event Name" />
+      <br />
+      <label>
+         Type:
+         <select name="type" id="">
+            <option value="concert">Concert</option>
+            <option value="communities">Communities</option>
+            <option value="classes">Classes</option>
+            <option value="parties">Parties</option>
+            <option value="sport">Sport</option>
+         </select>
+      </label>
+      <br />
+      <label for="location">Location</label>
+      <input type="text" name="location" placeholder="Event Name" />
+      <br /> -->
+      <button type="submit">Submit</button>
+   </form>
+</div>
 {% endblock %}
