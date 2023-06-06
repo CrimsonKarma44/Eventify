@@ -7,8 +7,14 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
 # Create your views here.
+
+
 def home(request):
     return render(request, 'home.html')
+
+
+def event_create(request):
+    return render(request, 'event-create.html')
 
 
 def send_email_message(request):

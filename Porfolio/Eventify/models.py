@@ -1,10 +1,11 @@
 from django.db import models
 
 types_genre = [
-    ('P', 'Party'),
-    ('E', 'Event'),
-    ('S', 'Show'),
-    ('B', 'Bonfire'),
+    ('C', 'Concert'),
+    ('C', 'Communities'),
+    ('C', 'Classes'),
+    ('P', 'Parties'),
+    ('S', 'Sport'),
 ]
 
 
