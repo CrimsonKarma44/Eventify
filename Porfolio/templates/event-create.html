@@ -1,5 +1,3 @@
-{% extends 'home.html' %}
-
-{% block content %}
-<h1>Home</h1>
+{% extends 'home.html' %} {% block content %}
+<form action="" method="POST">{{csrf_token}} {{form.as_p}}</form>
 {% endblock %}

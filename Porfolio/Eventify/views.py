@@ -6,6 +6,8 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+from .forms import EventForm
+
 # Create your views here.
 
 
@@ -14,7 +16,11 @@ def home(request):
 
 
 def event_create(request):
-    return render(request, 'event-create.html')
+    form = EventForm()
+    context = {
+        'form': form
+    }
+    return render(request, 'event-create.html', context)
 
 
 def send_email_message(request):
