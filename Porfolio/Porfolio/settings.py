@@ -137,3 +137,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+FLUTTERWAVE_API_KEY = 'FLWSECK_TEST-6f6ed5664336aaf1ae5ee6c28f5446d9-X'
+FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3/'
+
