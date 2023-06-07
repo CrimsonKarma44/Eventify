@@ -27,37 +27,34 @@
         {% block content %}
         {% endblock%}
         <footer class="footer">
-            <div class="container">
-              <div class="footer-content">
-                <div class="footer-column">
-                  <h4>About Us</h4>
-                  <p>Eventify is a leading online ticketing platform that connects event organizers with enthusiastic attendees. Explore and book tickets for your favorite events today!</p>
-                </div>
-                <div class="footer-column">
-                  <h4>Quick Links</h4>
-                  <ul class="footer-links">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/events">Events</a></li>
-                    <li><a href="/tickets">Tickets</a></li>
-                    <li><a href="/organizers">Organizers</a></li>
-                    <li><a href="/faq">FAQ</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                  </ul>
-                </div>
-                <div class="footer-column">
-                  <h4>Connect with Us</h4>
-                  <div class="social-icons">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                  </div>
-                </div>
-              </div>
-              <div class="footer-bottom">
-                <p>&copy; 2023 Eventify. All rights reserved. | Privacy Policy | Terms of Service</p>
-              </div>
+          <div class="footer-container">
+            <div class="footer-logo">
+              <img src="{% static 'images/logo.png' %}" alt="Logo">
             </div>
-          </footer>
+            <nav class="footer-menu">
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Tickets</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </nav>
+            <div class="footer-social">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <p>&copy; 2023 Eventify. All rights reserved.</p>
+            <ul class="footer-links">
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms and Conditions</a></li>
+            </ul>
+          </div>
+        </footer>
+        
           
     </body>
 </html>
