@@ -12,5 +12,6 @@ form{
    margin: 20px;
 }
 #event{
+    /* have no idea on how this is done */
     background-image: url("{% static 'images/party.jpeg' %}");
 }
