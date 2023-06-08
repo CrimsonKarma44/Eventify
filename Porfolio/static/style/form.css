@@ -1,0 +1,16 @@
+#form{
+   text-align: center;
+   border-style: ridge;
+   border-width: medium;
+   border-radius: 15px;
+   margin-left: 400px;
+   margin-right: 400px;
+   margin-bottom: 100px;
+   margin-top: 10px;
+}
+form{
+   margin: 20px;
+}
+#event{
+    background-image: url("{% static 'images/party.jpeg' %}");
+}

@@ -23,7 +23,7 @@ class Event(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-updated', '-created']
+        ordering = ['-start', '-end']
 
     def __str__(self):
         return str(self.name)
