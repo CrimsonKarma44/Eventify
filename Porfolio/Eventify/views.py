@@ -17,6 +17,7 @@ def home(request):
     context = {'events': evemts}
     return render(request, 'home.html', context)
 
+
 def eventpage(request, event):
     data = Event.objects.get(name=event)
     context = {'event': data}
@@ -26,10 +27,11 @@ def eventpage(request, event):
 def event_create(request):
     form = EventForm()
     if request.method == 'POST':
+        print(request.POST)
         form = EventForm(request.POST)
         if form.is_valid:
             form.save()
-            return redirect('home')
+        return redirect('home')
         # return HttpResponse(form)
     context = {
         'form': form

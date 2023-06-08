@@ -2,27 +2,33 @@
 <div>
    <form action="" method="POST">
       {%csrf_token%}
-      {{form.as_p}}
-      <!-- <label for="name">Name: </label>
-      <input type="text" placeholder="Event Name" name="name" />
+      <!-- {{form.as_p}} -->
+      <label for="name">Name: </label>
+         <input type="text" placeholder="Event Name" name="name" />
+         <br />
+         <label for="description">Description: <textarea name="description" id="" cols="20" rows="5"></textarea>
+         </label>
+         <br />
+         <label>
+            Type:
+            <select name="type" id="">
+               <option value="Con">Concert</option>
+               <option value="Com">Communities</option>
+               <option value="Cl">Classes</option>
+               <option value="P">Parties</option>
+               <option value="S">Sport</option>
+            </select>
+         </label>
+         <br />
+         <label for="location">Location</label>
+         <input type="text" name="location" placeholder="Event Name" />
+         <br />
+         <label for="">Start</label>
+         <input type="datetime-local" name="start" id="">
+         <br />
+         <label for="">End: <input type="datetime-local" name="end" id="">
+         </label>
       <br />
-      <label for="description">Description: </label>
-      <input type="text" name="description" placeholder="Event Name" />
-      <br />
-      <label>
-         Type:
-         <select name="type" id="">
-            <option value="concert">Concert</option>
-            <option value="communities">Communities</option>
-            <option value="classes">Classes</option>
-            <option value="parties">Parties</option>
-            <option value="sport">Sport</option>
-         </select>
-      </label>
-      <br />
-      <label for="location">Location</label>
-      <input type="text" name="location" placeholder="Event Name" />
-      <br /> -->
       <button type="submit">Submit</button>
    </form>
 </div>
