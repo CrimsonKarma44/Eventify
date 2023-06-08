@@ -13,6 +13,7 @@ class Event(models.Model):
     description = models.CharField(max_length=200)
     type = models.CharField(max_length=60, choices=types_genre, default='Event')
     location = models.CharField(max_length=200)
+    img = models.ImageField(upload_to='banner', default=None)
 
     start = models.DateTimeField(auto_now=True)
     end = models.DateTimeField(auto_now_add=True)

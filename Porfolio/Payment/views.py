@@ -1,6 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 from django.http import HttpResponse
+from django.contrib import messages
+import json
+from .models import Payment
+import uuid
+from Ticket.models import Ticket
+from Eventify.models import Event
+from .collectives.generateCode import GenerateCode
+from .collectives.sendMail import SendMail
 
 # Create your views here.
 def payment(request):
@@ -8,42 +16,39 @@ def payment(request):
 
 def make_payment(request):
     # Collect the necessary payment details from the request
-    amount = 5000  # Example amount
-    email = "example@example.com"  # Example email
-
-    # Set up the request payload
-    payload = {
-        "tx_ref": "unique_transaction_reference",
-        "amount": amount,
-        "currency": "NGN",
-        "redirect_url": "http://your-website.com/payment/callback",
-        "payment_options": "card",
-        "customer": {
-            "email": email
-        },
-        "customizations": {
-            "title": "Payment for Order XYZ",
-            "description": "Payment for items purchased on your-website.com",
-        }
-    }
-
-    # Make a POST request to Flutterwave's payment initiation endpoint
-    headers = {
-        "Authorization": "Bearer FLWSECK_TEST-6f6ed5664336aaf1ae5ee6c28f5446d9-X",
-        "Content-Type": "application/json"
-    }
-    response = requests.post('https://api.flutterwave.com/v3/payments', json=payload, headers=headers)
-
-    # Process the response
-    if response.status_code == 200:
-        data = response.json()
-        return HttpResponse(data['data']['link'])
-    else:
-        return HttpResponse("Error occurred during payment initiation.")
+    pass
 
 
 def payment_callback(request):
     # Process the payment callback
+    response = request.GET.get('response')
+    response = json.loads(response)
+   
+    payment_id = response['id']
+    headers = {
+        "Authorization": "Bearer FLWSECK_TEST-6f6ed5664336aaf1ae5ee6c28f5446d9-X",
+        "Content-Type": "application/json"
+    }
+    res = requests.get('https://api.flutterwave.com/v3/transactions/{}/verify'.format(payment_id), headers=headers)
+    
+    res = res.json()
     # You can verify the payment status and update your database accordingly
+    if res['status'] is 'success':
+        genCode = uuid.uuid4()
+        code = str(genCode)
+        payment = Payment(ticket_id=res['ticket_id'], prince=res['amount'], email=res['email'], code=code, phone_no=res['phoneNo'])
+        payment.save()
+        ticket = Ticket.object.get(id=res['ticket_id'])
+        if ticket is not None:
+            event = Event.object.get(id=ticket.event_id)
+            if event is not None:
+                qrcode = GenerateCode.genQRCode(res[email], event.name, res[amount], code, res['ticket_id'])
+        messages.success(request, "Payment made successfully!")
+    return redirect('/')
 
-    return HttpResponse("Payment callback received.")
+def send_email(request):
+    email = 'charlykso141@gmail.com'
+    subject = 'This is just testing'
+    message = "This is the real message"
+    sendIt = SendMail.send_email_to_user(email, subject, message)
+    print(sendIt)

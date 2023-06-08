@@ -1,2 +1,52 @@
 <!-- payment.html -->
-<a href="{% url 'make_payment' %}">Proceed to Payment</a>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<div>Make payment</div>
+
+<div>
+  <input type="email" name="email" id="email" placeholder="Email" />
+</div>
+<div>
+  <input type="text" name="phoneNo" id="phone" placeholder="Phone Number" />
+</div>
+<div>
+  <input type="number" name="amount" id="amount" placeholder="Amount" />
+</div>
+<button type="button" id="submitButton" onclick="makePayment()">Pay Now</button>
+
+
+<script>
+  let price = document.getElementById('amount')
+  let email = document.getElementById('email')
+  let phoneNo = document.getElementById('phone')
+  let ticket_id = "{{event_id}}"
+
+  var submitButton = document.getElementById('submitButton')
+  //var csrftoken = '{{ csrf_token }}'
+
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: 'FLWPUBK_TEST-42fdb47d708e442d1d3d288c10e5c4be-X',
+      tx_ref: 'titanic-48981487343MDI0NzMx',
+      amount: price.value,
+      currency: 'USD',
+      payment_options: 'card, mobilemoneyghana, ussd',
+      redirect_url: 'http://127.0.0.1:8000/payment/callback/',
+      meta: {
+        consumer_id: 23,
+        consumer_mac: '92a3-912ba-1192a',
+        ticket_id: ticket_id,
+      },
+      customer: {
+        email: email.value,
+        phone_number: phoneNo.value,
+      },
+      customizations: {
+        title: 'Eventify',
+        description: 'Payment for an event ticket',
+        logo: 'https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg',
+      },
+    })
+  }
+</script>

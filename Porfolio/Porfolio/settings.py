@@ -133,6 +133,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -140,4 +143,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 FLUTTERWAVE_API_KEY = 'FLWSECK_TEST-6f6ed5664336aaf1ae5ee6c28f5446d9-X'
 FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3/'
+
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'charlykso121@gmail.com' 
+EMAIL_HOST_PASSWORD = 'IKEnna123$$'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'charlykso121@gmail.com'
 

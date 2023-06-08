@@ -1,1 +1,6 @@
 <h1>Hello, World!</h1>
+{% if messages %}
+{% for message in messages %}
+    <h4>{{message}}</h4>
+{% endfor %}
+{% endif %}
