@@ -1,6 +1,29 @@
-<h1>Hello, World!</h1>
-{% if messages %}
+{% extends 'main.html' %} {% block content %} 
+{% if messages %} 
 {% for message in messages %}
-    <h4>{{message}}</h4>
-{% endfor %}
+<h4>{{message}}</h4>
+{% endfor %} 
 {% endif %}
+<div class="jumbotron text-left">
+  <a href="{% url 'create-event' %}">Create Event</a>
+  <h2>UPCOMING EVENTS</h2>
+  <p>
+    Prepare to immerse yourself in a world of excitement and wonder as we bring
+    together the finest artists, innovators, and visionaries from around the
+    globe. From captivating performances to thought-provoking talks, this event
+    will be a celebration of creativity, inspiration, and human connection
+  </p>
+</div>
+<div class="container">
+  <div class="row">
+    {% for event in events %}
+    <div class="col-sm-4" id="event">
+      <h2>{{event.start}}</h2>
+      <h3><a href="{% url 'event' event.name %}">{{event.name}}</a></h3>
+      <p>{{event.location}}</p>
+      <hr />
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'main.html' %} {% block content %}
+<div  id="form">
+   <form action="" method="POST" >
+      {%csrf_token%}
+      <div class="col-12">
+         <label for="name" class="form-label">Name <input class="form-control" type="text" placeholder="Event Name" name="name" required />
+         </label>
+      </div>
+      <div class="col-12" >
+         <label for="description" class="form-label">Description <textarea class="form-control" name="description" id="description" cols="20" rows="5" required></textarea>
+      </div>
+      <div class="col12" class="form-label">
+         <label>
+            Type
+            <select class="form-control" name="type" id="" required>
+               <option value="Con">Concert</option>
+               <option value="Com">Communities</option>
+               <option value="Cl">Classes</option>
+               <option value="P">Parties</option>
+               <option value="S">Sport</option>
+            </select>
+         </label>
+      </div>
+
+      <div class="col-12">
+         <label for="location" class="form-label">Location 
+            <input class="form-control" type="text" name="location" placeholder="Event Name" required />
+         </label>
+      </div>
+      <div class="col-12">
+         <label for="" class="form-label">Start <input class="form-control" type="datetime-local" name="start" id="" required>
+         </label>
+      </div>
+      <div class="col-12">
+         <label for="" class="form-label">End <input class="form-control" type="datetime-local" name="end" id="" required>
+         </label>
+      </div>
+      <br>
+      <br>
+      <div class="col-12">
+         <button class="btn btn-primary"  type="submit">Submit</button>
+      </div>
+   </form>
+</div>
+{% endblock %}
