@@ -1,17 +1,19 @@
 {% extends 'main.html' %} {% block content %}
-<div>
+<div class="jumbotron text-center">
    <a href="{% url 'create-event' %}">Create Event</a>
-   <div id="upcomming-events">
-      <h2>UPCOMING EVENTS</h2>
-      <p>
-         Prepare to immerse yourself in a world of excitement and wonder as we
-         bring together the finest artists, innovators, and visionaries from
-         around the globe. From captivating performances to thought-provoking
-         talks, this event will be a celebration of creativity, inspiration, and
-         human connection
-      </p>
+   <h2>UPCOMING EVENTS</h2>
+   <p>
+      Prepare to immerse yourself in a world of excitement and wonder as we
+      bring together the finest artists, innovators, and visionaries from around
+      the globe. From captivating performances to thought-provoking talks, this
+      event will be a celebration of creativity, inspiration, and human
+      connection
+   </p>
+</div>
+<div class="container">
+   <div class="row">
       {% for event in events %}
-      <div>
+      <div class="col-sm-4">
          <h2>{{event.start}}</h2>
          <h3><a href="{% url 'event' event.name %}">{{event.name}}</a></h3>
          <p>{{event.location}}</p>

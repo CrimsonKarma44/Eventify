@@ -14,7 +14,7 @@ from .models import Event
 
 def home(request):
     evemts = Event.objects.all()
-    context = {'events': evemts}
+    context = {'events': evemts[:3]}
     return render(request, 'home.html', context)
 
 
