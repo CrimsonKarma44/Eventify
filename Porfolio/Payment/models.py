@@ -8,6 +8,7 @@ class Payment(models.Model):
     email = models.CharField(max_length=100)
     code = models.CharField(max_length=60)
     phone_no = models.CharField(max_length=20, blank=True, null=True)
+    present = models.BooleanField(default=False)
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
