@@ -1,11 +1,17 @@
 {% extends 'main.html' %} {% block content %} 
-{% if messages %} 
-{% for message in messages %}
-<h4>{{message}}</h4>
-{% endfor %} 
+{% if messages %}
+    {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show"{% endif %} role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
 {% endif %}
+
 <div class="jumbotron text-left">
-  <a href="{% url 'create-event' %}">Create Event</a>
+  <a href="#">Create Event</a>
   <h2>UPCOMING EVENTS</h2>
   <p>
     Prepare to immerse yourself in a world of excitement and wonder as we bring

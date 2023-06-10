@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-s^5zhwmje$ht_f75b+7m@mmyv3(&kgik+7s_%6ocd&-f5$-u7j
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.5.148', '127.0.0.1']
 
 
 # Application definition
@@ -150,11 +150,12 @@ FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3/'
 # settings.py
 
 #sending email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'eventify141@gmail.com' 
-EMAIL_HOST_PASSWORD = 'bxyrevolpkultjsa'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'eventify141@gmail.com'
- 
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER ='eventify141@gmail.com' 
+EMAIL_HOST_PASSWORD ='bxyrevolpkultjsa'
+# EMAIL_HOST_USER='charlykso141@gmail.com'
+# EMAIL_HOST_PASSWORD='ulyzonftpvotdypm'

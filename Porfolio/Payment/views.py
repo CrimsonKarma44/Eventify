@@ -1,14 +1,16 @@
-from django.shortcuts import render, redirect
-import requests
-from django.http import HttpResponse
-from django.contrib import messages
 import json
-from .models import Payment
 import uuid
+import requests
+from .models import Payment
 from Ticket.models import Ticket
+from django.conf import settings
 from Eventify.models import Event
-from .collectives.generateCode import GenerateCode
+from django.contrib import messages
+from django.http import HttpResponse
+from django.core.mail import send_mail
 from .collectives.sendMail import SendMail
+from django.shortcuts import render, redirect
+from .collectives.generateCode import GenerateCode
 
 # Create your views here.
 def payment(request):
@@ -33,7 +35,7 @@ def payment_callback(request):
     
     res = res.json()
     # You can verify the payment status and update your database accordingly
-    if res['status'] is 'success':
+    if res['status'] == 'success':
         genCode = uuid.uuid4()
         code = str(genCode)
         payment = Payment(ticket_id=res['ticket_id'], prince=res['amount'], email=res['email'], code=code, phone_no=res['phoneNo'])
@@ -46,9 +48,45 @@ def payment_callback(request):
         messages.success(request, "Payment made successfully!")
     return redirect('/')
 
+
 def send_email(request):
-    email = 'charlykso141@gmail.com'
-    subject = 'This is just testing'
-    message = "This is the real message"
-    sendIt = SendMail.send_email_to_user(email, subject, message)
-    print(sendIt)
+
+    genCode = uuid.uuid4()
+    code = str(genCode)
+    eventName = 'New Year Event'
+    amountPaid = 2700
+    ticketName = 'regular'
+
+
+    email = 'charlykso121@gmail.com'
+    subject = 'Second one'
+    message = "This is the second message"
+    
+    # generate QRCode
+    byte_stream = GenerateCode.genQRCode(email, eventName, amountPaid, code, ticketName)
+
+    # send mail message
+    sent_count = SendMail.send_email_to_user(email, subject, message, byte_stream)
+    if sent_count == 1:
+        # Email was sent successfully
+        messages.success(request, "Email sent successfully!")
+    else:
+        # Email sending failed
+        messages.error(request, "Failed to send email")
+    print(sent_count)
+    return redirect('/')
+
+def getCode(request):
+    genCode = uuid.uuid4()
+    code = str(genCode)
+    email = 'charlykso121@gmail.com'
+    eventName = 'New Year Event'
+    amountPaid = 2700
+    ticketName = 'regular'
+
+    response = GenerateCode.genQRCode(email, eventName, amountPaid, code, ticketName)
+
+    return response
+
+def present(request, email, code):
+    return HttpResponse('You are welcome: {} and your code is {}'.format(email, code))

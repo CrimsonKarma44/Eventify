@@ -1,23 +1,26 @@
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib import messages
+from django.core.mail import EmailMessage
 
 class SendMail:
 
-    def send_email_to_user(user_email, subject, message):
-        print(user_email)
-        sent_count = send_mail(
-            subject,
-            message,
-            settings.DEFAULT_FROM_EMAIL,
-            [user_email],
-            fail_silently=False,
-        )
+    def send_email_to_user(user_email, subject, message, byte_stream):
+        
+        try:
+            message = EmailMessage(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [user_email],
+            )
 
-        if sent_count == 1:
-            # Email was sent successfully
-            print("Email sent successfully!")
-        else:
-            # Email sending failed
-            print("Failed to send email!")
+            message.attach('qr_code.png', byte_stream.getvalue(), "image/png")
 
-        return sent_count
+            sent_count = message.send(fail_silently=False)
+            return sent_count
+        except Exception as e:
+            error_message = str(e)
+            print(error_message)
+            sent_count = 0
+            return sent_count
