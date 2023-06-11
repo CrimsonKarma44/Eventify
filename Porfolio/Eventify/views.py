@@ -21,8 +21,8 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def eventpage(request, event):
-    data = Event.objects.get(name=event)
+def eventPage(request, id):
+    data = Event.objects.get(id=id)
     tickets = Ticket.objects.filter(event_id=data.id)
     context = {'event': data, 'tickets': tickets}
     return render(request, 'eventpage.html', context)
