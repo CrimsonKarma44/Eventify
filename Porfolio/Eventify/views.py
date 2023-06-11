@@ -10,6 +10,8 @@ from Ticket.models import Ticket
 from .forms import EventForm
 from .models import Event
 
+
+
 # Create your views here.
 
 
@@ -22,6 +24,5 @@ def home(request):
 def eventpage(request, event):
     data = Event.objects.get(name=event)
     tickets = Ticket.objects.filter(event_id=data.id)
-    print(tickets)
     context = {'event': data, 'tickets': tickets}
     return render(request, 'eventpage.html', context)

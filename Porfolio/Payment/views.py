@@ -14,7 +14,13 @@ from .collectives.generateCode import GenerateCode
 
 # Create your views here.
 def payment(request):
-    return render(request, 'payment.html')
+    quantity = int(request.POST.get('quantity', 0))
+    print(quantity)
+    ticket_price = float(request.POST.get('ticket_price', 0))
+    amount = quantity * ticket_price
+    print(amount)
+    context = {'amount': amount}
+    return render(request, 'payment.html', context)
 
 def make_payment(request):
     # Collect the necessary payment details from the request
