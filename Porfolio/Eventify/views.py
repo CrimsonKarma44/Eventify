@@ -20,7 +20,10 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def eventpage(request, id):
+def eventPage(request, id):
     data = Event.objects.get(id=id)
     context = {'event': data}
     return render(request, 'eventpage.html', context)
+
+def myEvents(request):
+    return HttpResponse('This is my events')
