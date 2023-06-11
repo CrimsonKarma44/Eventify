@@ -6,6 +6,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+from Ticket.models import Ticket
 from .forms import EventForm
 from .models import Event
 
@@ -20,9 +21,10 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def eventPage(request, id):
-    data = Event.objects.get(id=id)
-    context = {'event': data}
+def eventpage(request, event):
+    data = Event.objects.get(name=event)
+    tickets = Ticket.objects.filter(event_id=data.id)
+    context = {'event': data, 'tickets': tickets}
     return render(request, 'eventpage.html', context)
 
 def myEvents(request):

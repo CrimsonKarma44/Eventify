@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block content %}
+  <h1>Ticket Purchase</h1>
+  
+  <form method="POST" action="{% url 'payment' %}">
+    {% csrf_token %}
+    
+    <h2>{{ ticket.name }}</h2>
+    <p>Type: {{ ticket.ticket_type }}</p>
+    <p>Price: ${{ ticket.price }}</p>
+    <p>Quantity Available: {{ ticket.quantity_available }}</p>
+    <input type="hidden" name="ticket_price" value="{{ ticket.price }}">
+    
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity" min="1" max="{{ ticket.quantity_available }}" required>
+    
+    <button type="submit">Purchase</button>
+  </form>
+  
+{% endblock %}

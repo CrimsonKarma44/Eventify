@@ -1,8 +1,24 @@
 {% extends 'main.html' %} {% block content %}
 <div>
-  <h1>{{event.name}}</h1>
-  <hr />
-  <p>{{event.description}}</p>
-  <hr />
+   <h1>{{event.name}}</h1>
+   <hr />
+   <p>{{event.description}}</p>
+   <hr />
+   <h2>Tickets:</h2>
+   {% for ticket in tickets %}
+      <div>
+         <p>Type: {{ ticket.ticket_type }}</p>
+         <p>Price: {{ ticket.price }} $</p>
+         <p>Remaining tickets: {{ ticket.quantity_available }}</p>
+         {% if ticket.quantity_available > 0 %}
+            <a type="button" href="/ticket/{{ ticket.id }}/purchase/">Purchase</a>
+         {% else %}
+            <p>Sold Out</p>
+         {% endif %}
+         <hr />
+      </div>
+   {% empty %}
+      <p>No tickets available for this event.</p>
+   {% endfor %}
 </div>
 {% endblock %}

@@ -27,7 +27,7 @@ class Event(models.Model):
         ordering = ['-start', '-end']
 
     def __str__(self):
-        return str(self.name)
+        return str(self.id)
 
 
 class Category(models.Model):
