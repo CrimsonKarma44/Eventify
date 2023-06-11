@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Eventify',
         'USER': 'root',
-        'PASSWORD': 'pass',
+        'PASSWORD': 'root',
         'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
@@ -150,11 +150,12 @@ FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3/'
 # settings.py
 
 #sending email
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'eventify141@gmail.com' 
-EMAIL_HOST_PASSWORD = 'bxyrevolpkultjsa'
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'eventify141@gmail.com'
- 
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER ='eventify141@gmail.com' 
+EMAIL_HOST_PASSWORD ='bxyrevolpkultjsa'
+# EMAIL_HOST_USER='charlykso141@gmail.com'
+# EMAIL_HOST_PASSWORD='ulyzonftpvotdypm'
