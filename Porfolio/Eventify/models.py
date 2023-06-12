@@ -27,7 +27,7 @@ class Event(models.Model):
         ordering = ['-start', '-end']
 
     def __str__(self):
-        return str(self.id)
+        return str(self.name)
 
 
 class Category(models.Model):
@@ -41,4 +41,4 @@ class Category(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.event_id)
+        return str(self.id)

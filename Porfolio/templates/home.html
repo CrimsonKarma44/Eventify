@@ -1,4 +1,5 @@
 {% extends 'main.html' %} {% block content %} 
+{% load static %}
 {% if messages %}
     {% for message in messages %}
         <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show"{% endif %} role="alert">
@@ -10,8 +11,8 @@
     {% endfor %}
 {% endif %}
 
-<div class="jumbotron text-left">
-  <h2 class="mx-md-n1 border-left border-2 border-primary px-2" style="border-left: 2px solid greed">UPCOMING EVENTS</h2>
+<div class="inner-container mb-3 py-3">
+  <h2 class=" upcoming-event" >UPCOMING EVENTS</h2>
   <div class="row">
     <div class="col-md-9">
       <p>
@@ -22,34 +23,46 @@
       </p>
     </div>
     <div class="col-md-3">
-      <button class="rounded-pill py-2 px-1" >
+      <button class="rounded-pill py-2 px-2 see-upcoming-event" >
         SEE ALL UPCOMING EVENTS
       </button>
     </div>
   </div>
   <div class="col-md-12 mt-5">
-    <div class="row">
+    <div class="row all-event-con">
       {% for event in events %}
-      <div class="col-sm-4" id="event" style="background-image:url('{{event.img.url}}'); background-size:cover; background-repeat:no-repeat; width:100vw; height:100vh">
-        <h2>{{event.start}}</h2>
-        <h3><a href="get_event/{{ event.id }}/">{{event.name}}</a></h3>
-        <p>{{event.location}}</p>
-        <hr />
+      <div class="col-xs-12 col-md-4 event-container" id="event" style="background-image:url('{{event.img.url}}');">
+        <div class="start-date">
+          <h2>{{event.start}}</h2>
+        </div>
+        <div class="description">
+          <h3><a href="get_event/{{ event.id }}/">{{event.name}}</a></h3>
+          <p>{{event.location}}</p>
+          <button class="buy" >
+            Get Ticket
+          </button>
+        </div>
       </div>
       {% endfor %}
     </div>
   </div>
 </div>
+<div class="category mt-5 py-3">
+  <div class="by-category mb-3">
+    <h2 class=" upcoming-event" >EVENTS BY CATEGORIES</h2>
+  </div>
+  <div class="row list-categories">
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/concert.png' %}');">CONCERTS</div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/community.png' %}');">COMMUNITIES</div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/classes.png' %}');">CLASSES</div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/party.png' %}');">PARTIES</div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/theater.png' %}');">THEATERS</div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/sport.png' %}');">SPORTS</div>
+  </div>
+</div>
 <div class="container">
   <div class="row">
-    {% for event in events %}
-    <div class="col-sm-4" id="event">
-      <h2>{{event.start}}</h2>
-      <h3><a href="get_event/{{ event.id }}/">{{event.name}}</a></h3>
-      <p>{{event.location}}</p>
-      <hr />
-    </div>
-    {% endfor %}
+    
   </div>
 </div>
 {% endblock %}
