@@ -14,7 +14,9 @@ class Ticket(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.name)
+        event_name = self.event_id.name
+        return f"Ticket {event_name} - {self.name}"
 
     def is_sold_out(self):
         return self.quantity_available <= 0
+    

@@ -89,10 +89,19 @@
     background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
     border-radius: 12px;
 }
+.buy>a{
+    color: #000;
+}
+.buy>a:hover{
+    text-decoration: none;
+}
 .list-categories{
     /* background-color: green; */
-    display: grid;
+    /* display: grid; */
     justify-content: space-around;
+}
+.list-categories .category-item a{
+    color: #fff;
 }
 .by-category h2{
     font-family: 'Inter';
@@ -106,8 +115,8 @@
     padding-left: 5px;
 }
 .list-categories>div{
-    width: 308px;
-    height: 204px;
+    width: 200px;
+    height: 180px;
     text-align: center;
     background-position: center;
     background-size: cover;
@@ -123,8 +132,101 @@
     justify-content: center;
     align-items: center;
 }
-@media (min-width: 768px) {
+/* footer styling */
+.footer {
+    width: 100%;
+    height: 250px;
+    padding: 20px 0;
+    background-position: center;
+    background-size: cover;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: #ffffff;
+}
+.middle-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+}
+.middle-footer h4{
+    font-family: 'Inter';
+    margin: 15px auto;
+    width: 100%;
+    border-bottom: 2px solid #FFFFFF;
+    line-height: 58px;
+    letter-spacing: 0.02em;
+}
+.footer-container .footer-menu ul li a{
+    color: #ffffff;
+}
+.footer-container .footer-menu ul li a:hover {
+    text-decoration: none;
+    color: #EF924B;
+}
+.footer-container .footer-social a{
+    color: #ffffff;
+}
+.footer-bottom ul li a{
+    color: #ffffff;
+}
+/* @media (min-width: 768px) {
     .category-item{
-        flex-basis: 20%;
+        flex-basis: 29%;
     }
+} */
+
+/* single event styling */
+.tickets-heading{
+    border-bottom: 1px solid #E5DFDF;
+}
+.purchase-button{
+    background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
+    border-radius: 12px;
+    padding: 5px 10px;
+    color: #000;
+}
+.ticket-main{
+    display: flex;
+    justify-content: space-between;
+}
+.ticket-right{
+    width: 300px;
+    background-position: center;
+    background-size: cover;
+}
+
+/* payment style */
+.main-payment{
+    padding: 10px 0px;
+}
+.make-payment{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    border-left: 5px solid #D8614D;
+    transform: rotate(0.91deg);
+    padding-left: 5px;
+}
+.payment-form{
+    margin: auto;
+    background: #FFF8F8;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.form-group button{
+    background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
+}
+.payment-details{
+    display: flex;
+    justify-content: space-between;
 }

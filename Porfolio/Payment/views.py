@@ -11,15 +11,12 @@ from django.core.mail import send_mail
 from .collectives.sendMail import SendMail
 from django.shortcuts import render, redirect
 from .collectives.generateCode import GenerateCode
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
-def payment(request):
-    quantity = int(request.POST.get('quantity', 0))
-    print(quantity)
-    ticket_price = float(request.POST.get('ticket_price', 0))
-    amount = quantity * ticket_price
-    print(amount)
-    context = {'amount': amount}
+def payment(request, id):
+    ticket = Ticket.objects.get(id=id)
+    context = {'amount': ticket.price, 'event': ticket.event_id.name, 'ticket': ticket}
     return render(request, 'payment.html', context)
 
 def make_payment(request):

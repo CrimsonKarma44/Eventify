@@ -1,26 +1,37 @@
 <!-- payment.html -->
+{% extends 'main.html' %}
+{% block content %}
+<div class="main-payment">
+  <div class="make-payment">Make payment</div>
+  <div class="payment-details mb-3">
+    <h4>Title: {{event}}</h4>
+    <h4>Ticket:  <b>{{ticket.ticket_type}}</b></h4>
+    <h4>Amount: <b> ${{amount}}</b></h4>
+  </div>
+  <div class="payment-form">
+    <div class="form-group">
+      <input class="form-control" type="email" name="email" id="email" placeholder="Email" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="text" name="phoneNo" id="phone" placeholder="Phone Number" />
+    </div>
+    <div class="form-group">
+      <input class="form-control" type="hidden" name="amount" id="amount" placeholder="Amount" value="{{ amount }}" readonly/>
+    </div>
+    <div class="form-group">
+      <button class="form-control" type="button" id="submitButton" onclick="makePayment()">Pay Now</button>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://checkout.flutterwave.com/v3.js"></script>
-
-<div>Make payment</div>
-
-<div>
-  <input type="email" name="email" id="email" placeholder="Email" />
-</div>
-<div>
-  <input type="text" name="phoneNo" id="phone" placeholder="Phone Number" />
-</div>
-<div>
-  <input type="number" name="amount" id="amount" placeholder="Amount" value="{{ amount }}" readonly/>
-</div>
-<button type="button" id="submitButton" onclick="makePayment()">Pay Now</button>
-
-
 <script>
   let price = document.getElementById('amount')
   let email = document.getElementById('email')
   let phoneNo = document.getElementById('phone')
-  let ticket_id = "{{event_id}}"
+  let ticket_id = "{{ticket.event_id}}"
+  console.log(price.value)
 
   var submitButton = document.getElementById('submitButton')
   //var csrftoken = '{{ csrf_token }}'
@@ -50,3 +61,4 @@
     })
   }
 </script>
+{% endblock content %}
