@@ -150,8 +150,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-FLUTTERWAVE_API_KEY = 'FLWSECK_TEST-6f6ed5664336aaf1ae5ee6c28f5446d9-X'
-FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3/'
+# FLUTTERWAVE_API_KEY = 'FLWSECK_TEST-6f6ed5664336aaf1ae5ee6c28f5446d9-X'
+# FLUTTERWAVE_BASE_URL = 'https://api.flutterwave.com/v3/'
 
 # settings.py
 

@@ -1,64 +1,57 @@
-<!-- payment.html -->
-{% extends 'main.html' %}
-{% block content %}
+{% extends 'main.html' %} {% block content %} {% load static %}
 <div class="main-payment">
-  <div class="make-payment">Make payment</div>
-  <div class="payment-details mb-3">
-    <h4>Title: {{event}}</h4>
-    <h4>Ticket:  <b>{{ticket.ticket_type}}</b></h4>
-    <h4>Amount: <b> ${{amount}}</b></h4>
-  </div>
-  <div class="payment-form">
-    <div class="form-group">
-      <input class="form-control" type="email" name="email" id="email" placeholder="Email" />
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="text" name="phoneNo" id="phone" placeholder="Phone Number" />
-    </div>
-    <div class="form-group">
-      <input class="form-control" type="hidden" name="amount" id="amount" placeholder="Amount" value="{{ amount }}" readonly/>
-    </div>
-    <div class="form-group">
-      <button class="form-control" type="button" id="submitButton" onclick="makePayment()">Pay Now</button>
-    </div>
-  </div>
+<div class="make-payment mb-3">Make payment</div>
+<div class="payment-details mb-3 pl-2">
+  <h4>Title: {{event}}</h4>
+  <h4>Ticket: <b>{{ticket.ticket_type}}</b></h4>
+  <h4>Amount: <b> ${{amount}}</b></h4>
 </div>
-
+<form method="POST" action="{% url 'make_payment' id=ticket.event_id.id %}">
+  {% csrf_token %}
+  <div class="form-group"></div>
+  <div class="form-group">
+    <input
+      class="form-control"
+      type="email"
+      name="email"
+      value=""
+      placeholder="Email"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      class="form-control"
+      type="text"
+      name="phoneNo"
+      id="phone"
+      placeholder="Phone Number"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <input
+      class="form-control"
+      type="Number"
+      name="quantity"
+      id="qtty"
+      placeholder="Quantity"
+      required
+    />
+  </div>
+  <input type="hidden" name="tx_ref" value="{{tx_ref}}" />
+  <input type="hidden" name="amount" value="{{amount}}" />
+  <input type="hidden" name="currency" value="NGN" />
+  <input type="hidden" name="meta[token]" value="54" />
+  <input type="hidden" name="ticket_id" value="{{ticket.id}}" />
+  <input
+    type="hidden"
+    name="redirect_url"
+    value="http://192.168.0.112:8000/payment/callback/"
+  />
+  <div class="form-group">
+    <button type="submit" class="form-control" id="submitButton">Pay Now</button>
+  </div>
+</form>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://checkout.flutterwave.com/v3.js"></script>
-<script>
-  let price = document.getElementById('amount')
-  let email = document.getElementById('email')
-  let phoneNo = document.getElementById('phone')
-  let ticket_id = "{{ticket.event_id}}"
-  console.log(price.value)
-
-  var submitButton = document.getElementById('submitButton')
-  //var csrftoken = '{{ csrf_token }}'
-
-  function makePayment() {
-    FlutterwaveCheckout({
-      public_key: 'FLWPUBK_TEST-42fdb47d708e442d1d3d288c10e5c4be-X',
-      tx_ref: 'titanic-48981487343MDI0NzMx',
-      amount: price.value,
-      currency: 'USD',
-      payment_options: 'card, mobilemoneyghana, ussd',
-      redirect_url: 'http://127.0.0.1:8000/payment/callback/',
-      meta: {
-        consumer_id: 23,
-        consumer_mac: '92a3-912ba-1192a',
-        ticket_id: ticket_id,
-      },
-      customer: {
-        email: email.value,
-        phone_number: phoneNo.value,
-      },
-      customizations: {
-        title: 'Eventify',
-        description: 'Payment for an event ticket',
-        logo: 'https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg',
-      },
-    })
-  }
-</script>
 {% endblock content %}
