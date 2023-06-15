@@ -16,6 +16,7 @@ class Ticket(models.Model):
     def __str__(self):
         event_name = self.event_id.name
         return f"Ticket {event_name} - {self.name}"
+        # return str(self.id)
 
     def is_sold_out(self):
         return self.quantity_available <= 0
