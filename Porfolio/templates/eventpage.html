@@ -8,8 +8,9 @@
    {% for ticket in tickets %}
       <div class="ticket-main">
          <div class="ticket-left">
+            <p>Name: {{ ticket.name }}</p>
             <p>Type: {{ ticket.ticket_type }}</p>
-            <p>Price: ${{ ticket.price }}</p>
+            <p>Price: &#x20a6;{{ ticket.price }}</p>
             <p>Remaining tickets: {{ ticket.quantity_available }}</p>
             {% if ticket.quantity_available > 0 %}
                <a type="button" class="purchase-button" href="/payment/ticket/{{ ticket.id }}/purchase/">Purchase</a>

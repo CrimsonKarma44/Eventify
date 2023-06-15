@@ -8,6 +8,7 @@ class Payment(models.Model):
     email = models.CharField(max_length=100)
     code = models.CharField(max_length=60)
     phone_no = models.CharField(max_length=20, blank=True, null=True)
+    transaction_id = models.BigIntegerField(verbose_name="Transaction Id")
     present = models.BooleanField(default=False)
 
     updated = models.DateTimeField(auto_now=True)

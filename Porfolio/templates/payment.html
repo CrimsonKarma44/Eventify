@@ -3,8 +3,8 @@
 <div class="make-payment mb-3">Make payment</div>
 <div class="payment-details mb-3 pl-2">
   <h4>Title: {{event}}</h4>
-  <h4>Ticket: <b>{{ticket.ticket_type}}</b></h4>
-  <h4>Amount: <b> ${{amount}}</b></h4>
+  <h4>Ticket: <b>{{ticket.name}}</b></h4>
+  <h4>Amount: <b> &#x20a6;{{amount}}</b></h4>
 </div>
 <form method="POST" action="{% url 'make_payment' id=ticket.event_id.id %}">
   {% csrf_token %}
@@ -43,11 +43,7 @@
   <input type="hidden" name="currency" value="NGN" />
   <input type="hidden" name="meta[token]" value="54" />
   <input type="hidden" name="ticket_id" value="{{ticket.id}}" />
-  <input
-    type="hidden"
-    name="redirect_url"
-    value="http://192.168.0.112:8000/payment/callback/"
-  />
+
   <div class="form-group">
     <button type="submit" class="form-control" id="submitButton">Pay Now</button>
   </div>

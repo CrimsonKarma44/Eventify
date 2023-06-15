@@ -5,13 +5,14 @@ from .models import Payment
 from Ticket.models import Ticket
 from django.conf import settings
 from Eventify.models import Event
+from django.contrib.auth.models import User
+from Eventify.models import UserProfile
 from django.contrib import messages
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from .collectives.sendMail import SendMail
 from django.shortcuts import render, redirect
 from .collectives.generateCode import GenerateCode
-from django.shortcuts import get_object_or_404
 from .collectives.makePayment import initiate_payment
 
 
@@ -19,12 +20,17 @@ from .collectives.makePayment import initiate_payment
 def payment(request, id):
     ticket = Ticket.objects.get(id=id)
     tx_ref = uuid.uuid4().hex[:10]
-    context = {'amount': ticket.price, 'event': ticket.event_id.name, 'ticket': ticket, 'ticket_id': id, 'tx_ref': tx_ref}
+    context = {'amount': ticket.price, 'event': ticket.event_id.name,
+               'ticket': ticket, 'ticket_id': id, 'tx_ref': tx_ref}
     return render(request, 'payment.html', context)
+
 
 def make_payment(request, id):
     # Collect the necessary payment details from the request
     event = Event.objects.get(id=id)
+    owner = User.objects.get(id=event.user.id)
+    user_profile = UserProfile.objects.get(user=owner)
+    # print(user_profile.secret_key)
     email = request.POST.get('email')
     phone_number = request.POST.get('phoneNo')
     quantity = request.POST.get('quantity')
@@ -32,7 +38,8 @@ def make_payment(request, id):
     totalAmount = (float(amount) * int(quantity)) * 100
     tx_ref = request.POST.get('tx_ref')
     ticket_id = request.POST.get('ticket_id')
-    redirect_url = request.POST.get('redirect_url')
+    redirect_url = "http://192.168.0.112:8000/payment/callback/{}".format(
+        event.user.id)
     userData = {
         'email': email,
         'amount': totalAmount,
@@ -41,13 +48,13 @@ def make_payment(request, id):
         'metadata': json.dumps({'quantity': quantity, 'phone_number': phone_number, 'ticket_id': ticket_id})
     }
     headers = {
-        "Authorization": "Bearer sk_test_c7c794bf42d409179d35cf75f239a5949790ee49",
+        "Authorization": f"Bearer {user_profile.secret_key}",
         "Content-Type": "application/json"
     }
-    
 
     try:
-        response = requests.post('https://api.paystack.co/transaction/initialize', headers=headers, json=userData)
+        response = requests.post(
+            'https://api.paystack.co/transaction/initialize', headers=headers, json=userData)
         if response.status_code == 200:
             # Request successful
             json_response = response.json()
@@ -68,30 +75,50 @@ def make_payment(request, id):
     return HttpResponse(res)
 
 
-def payment_callback(request):
+def payment_callback(request, user_id):
     # Process the payment callback
+    # print(user_id)
+    owner = User.objects.get(id=user_id)
+    owner = UserProfile.objects.get(user=owner)
+    # print(owner.secret_key)
     response = request.GET
     reference = response['reference']
     # print(reference)
     headers = {
-        "Authorization": "Bearer sk_test_c7c794bf42d409179d35cf75f239a5949790ee49"
+        "Authorization": f"Bearer {owner.secret_key}"
     }
-    res = requests.get('https://api.paystack.co/transaction/verify/{}'.format(reference), headers=headers)
+    res = requests.get(
+        'https://api.paystack.co/transaction/verify/{}'.format(reference), headers=headers)
     res = res.json()
 
     print(res)
-    
+
+    status = res['data']['status']
     # # You can verify the payment status and update your database accordingly
-    if res['status'] == 'success':
-        ticket_id = res['data']['ticket_id']
+    if status == 'success':
+        ticket_id = res['data']['metadata']['ticket_id']
         amount = res['data']['amount']
-        email = res['data']['authorization']['customer']['email']
+        email = res['data']['customer']['email']
         phone_no = res['data']['metadata']['phone_number']
         quantity = res['data']['metadata']['quantity']
-        status = res['data']['status']
+        transaction_id = res['data']['id']
         genCode = uuid.uuid4()
         code = str(genCode)
-    #     payment = Payment(ticket_id=ticket_id, price=amount, email=email, code=code, phone_no=phone_no)
+        print(ticket_id)
+        print(amount)
+        print(email)
+        print(phone_no)
+        print(quantity)
+        print(code)
+
+        # payment = Payment(
+        #     ticket_id=ticket_id, 
+        #     price=amount, 
+        #     email=email, 
+        #     code=code, 
+        #     phone_no=phone_no,
+        #     transaction_id=transaction_id
+        #     )
     #     payment.save()
     #     ticket = Ticket.object.get(id=ticket_id)
     #     if ticket is not None:
@@ -109,16 +136,17 @@ def send_email(request):
     amountPaid = 2700
     ticketName = 'regular'
 
-
     email = 'charlykso121@gmail.com'
     subject = 'Second one'
     message = "This is the second message"
-    
+
     # generate QRCode
-    byte_stream = GenerateCode.genQRCode(email, eventName, amountPaid, code, ticketName)
+    byte_stream = GenerateCode.genQRCode(
+        email, eventName, amountPaid, code, ticketName)
 
     # send mail message
-    sent_count = SendMail.send_email_to_user(email, subject, message, byte_stream)
+    sent_count = SendMail.send_email_to_user(
+        email, subject, message, byte_stream)
     if sent_count == 1:
         # Email was sent successfully
         messages.success(request, "Email sent successfully!")
@@ -128,6 +156,7 @@ def send_email(request):
     print(sent_count)
     return redirect('/')
 
+
 def getCode(request):
     genCode = uuid.uuid4()
     code = str(genCode)
@@ -136,9 +165,11 @@ def getCode(request):
     amountPaid = 2700
     ticketName = 'regular'
 
-    response = GenerateCode.genQRCode(email, eventName, amountPaid, code, ticketName)
+    response = GenerateCode.genQRCode(
+        email, eventName, amountPaid, code, ticketName)
 
     return response
+
 
 def present(request, email, code):
     return HttpResponse('You are welcome: {} and your code is {}'.format(email, code))
