@@ -155,6 +155,7 @@
     line-height: 29px;
     letter-spacing: 0.02em;
     margin-bottom: 8px;
+    flex-wrap: wrap;
 }
 .middle-footer h4{
     font-family: 'Inter';
