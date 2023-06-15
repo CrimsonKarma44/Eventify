@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<h2>Registration</h2>
+<form method="POST" action="{% url 'register' %}">
+  {% csrf_token %}
+  <!-- Registration form fields -->
+  {{ form.as_p }}
+  <button type="submit">Register</button>
+</form>
+
+<hr>
+
+<h2>Already Have an account?</h2>
+<form method="POST" action="{% url 'login' %}">
+  {% csrf_token %}
+  {{ login_form.as_p }}
+  <button type="submit">Login</button>
+</form>
+{% endblock %}

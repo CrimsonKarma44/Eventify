@@ -14,7 +14,7 @@ from .collectives.sendMail import SendMail
 from django.shortcuts import render, redirect
 from .collectives.generateCode import GenerateCode
 from .collectives.makePayment import initiate_payment
-
+from django.http import HttpResponseServerError
 
 # Create your views here.
 def payment(request, id):
