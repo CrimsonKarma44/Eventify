@@ -1,8 +1,10 @@
 {% extends 'main.html' %} {% block content %}
 <div>
-   <h1>{{event.name}}</h1>
+   
    <hr />
-   <p>{{event.description}}</p>
+   <div class="form-group">
+      <input type="text" class="form-control" id="search-ticket" placeholder="Search ticket" />
+   </div>
    <hr />
    <h2 class="tickets-heading">Tickets:</h2>
    <div class="allticket-main">
