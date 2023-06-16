@@ -96,9 +96,10 @@ def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid:
-            event = form.save(commit=False)
-            event.user = request.user
-            event.save()
+            # event = form.save(commit=False)
+            # event.user = request.user
+            # event.save()
+            form.save()
             return redirect('home')
     form = EventForm()
     context = {'form': form}
