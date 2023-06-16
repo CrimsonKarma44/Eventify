@@ -91,12 +91,14 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 
-@login_required
+@login_required(login_url='/login')
 def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid:
-            form.save()
+            event = form.save(commit=False)
+            event.user = request.user
+            event.save()
             return redirect('home')
     form = EventForm()
     context = {'form': form}

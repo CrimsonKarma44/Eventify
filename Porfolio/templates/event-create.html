@@ -10,7 +10,9 @@
    <h2>EVENT</h2>
    <form action="" method="POST" >
       {%csrf_token%}
-      <label for="name" class="form-label home-container">Name: <input class="form-control" type="text" placeholder="Event Name" name="name" required /></label>
+      {{form.as_p}}
+
+      <!-- <label for="name" class="form-label home-container">Name: <input class="form-control" type="text" placeholder="Event Name" name="name" required /></label>
       <label for="description" class="form-label ">Description: <textarea class="form-control" name="description" id="description" cols="20" rows="5" required></textarea>
          <div class="col12" class="form-label">
             <label class="home-container">
@@ -35,7 +37,7 @@
       </div>
       <div class="col-12">
       <label for="" class="form-label home-container">End: <input class="form-control" type="datetime-local" name="end" id="" required></label>
-   </div>
+   </div> -->
    <button type="submit">Submit</button>
 </form>
 </div>
