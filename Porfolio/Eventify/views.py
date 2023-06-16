@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 
@@ -100,6 +100,10 @@ def profile_update_view(request):
         form = ProfileUpdateForm(instance=user.userprofile)
     
     return render(request, 'profile_update.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 def myEvents(request):
     title = 'My Events'
