@@ -7,13 +7,13 @@ from django.conf import settings
 from Eventify.models import Event
 from django.contrib.auth.models import User
 from Eventify.models import UserProfile
+from .models import Payment
 from django.contrib import messages
 from django.http import HttpResponse
-from django.core.mail import send_mail
-from .collectives.sendMail import SendMail
 from django.shortcuts import render, redirect
-from .collectives.generateCode import GenerateCode
-from .collectives.makePayment import initiate_payment
+from .collectives.sendCodeToMail import sendCodeToMail
+# from django.core.mail import send_mail
+# from .collectives.sendMail import SendMail
 
 
 # Create your views here.
@@ -35,10 +35,14 @@ def make_payment(request, id):
     phone_number = request.POST.get('phoneNo')
     quantity = request.POST.get('quantity')
     amount = request.POST.get('amount')
-    totalAmount = (float(amount) * int(quantity)) * 100
+    if int(quantity) <= 0:
+        messages.error(request, "Amount not supported!")
+        return redirect('/')
+    totalAmount = int(float(amount) * int(quantity) * 100)
+    # totalAmount = str(totalAmount)+".00"
     tx_ref = request.POST.get('tx_ref')
     ticket_id = request.POST.get('ticket_id')
-    redirect_url = "http://192.168.0.112:8000/payment/callback/{}".format(
+    redirect_url = "http://192.168.5.148:8000/payment/callback/{}".format(
         event.user.id)
     userData = {
         'email': email,
@@ -91,7 +95,7 @@ def payment_callback(request, user_id):
         'https://api.paystack.co/transaction/verify/{}'.format(reference), headers=headers)
     res = res.json()
 
-    print(res)
+    # print(res)
 
     status = res['data']['status']
     # # You can verify the payment status and update your database accordingly
@@ -104,26 +108,32 @@ def payment_callback(request, user_id):
         transaction_id = res['data']['id']
         genCode = uuid.uuid4()
         code = str(genCode)
-        print(ticket_id)
-        print(amount)
-        print(email)
-        print(phone_no)
-        print(quantity)
-        print(code)
+        amount = amount/100
+        ticket = Ticket.objects.get(id=ticket_id)
 
-        # payment = Payment(
-        #     ticket_id=ticket_id, 
-        #     price=amount, 
-        #     email=email, 
-        #     code=code, 
-        #     phone_no=phone_no,
-        #     transaction_id=transaction_id
-        #     )
-    #     payment.save()
-    #     ticket = Ticket.object.get(id=ticket_id)
-    #     if ticket is not None:
-    #         event = ticket.event_id.name
-    #         qrcode = GenerateCode.genQRCode(email, event, amount, code, ticket_id)
+        payment = Payment(
+            ticket_id=ticket,
+            price=amount,
+            email=email,
+            code=code,
+            phone_no=phone_no,
+            transaction_id=transaction_id
+        )
+        payment.save()
+        if ticket is not None:
+            event = ticket.event_id.name
+            ticket.quantity_available = ticket.quantity_available - \
+                int(quantity)
+            ticket.save()
+            sent_count = sendCodeToMail(
+                email, event, amount, code, ticket.name, quantity)
+            if sent_count == 1:
+                # Email was sent successfully
+                messages.success(
+                    request, f"Payment successful, check your email: {email} for the ticket")
+            else:
+                # Email sending failed
+                messages.error(request, "Failed to send email")
     #     messages.success(request, "Payment made successfully!")
     return redirect('/')
 
@@ -135,6 +145,7 @@ def send_email(request):
     eventName = 'New Year Event'
     amountPaid = 2700
     ticketName = 'regular'
+    Quantity = 1
 
     email = 'charlykso121@gmail.com'
     subject = 'Second one'
@@ -157,19 +168,10 @@ def send_email(request):
     return redirect('/')
 
 
-def getCode(request):
-    genCode = uuid.uuid4()
-    code = str(genCode)
-    email = 'charlykso121@gmail.com'
-    eventName = 'New Year Event'
-    amountPaid = 2700
-    ticketName = 'regular'
-
-    response = GenerateCode.genQRCode(
-        email, eventName, amountPaid, code, ticketName)
-
-    return response
-
-
 def present(request, email, code):
+    payment = Payment.objects.get(code=code)
+    if payment.present == True:
+        return HttpResponse('{} is already present'.format(payment.email))
+    payment.present = True
+    payment.save()
     return HttpResponse('You are welcome: {} and your code is {}'.format(email, code))

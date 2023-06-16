@@ -36,10 +36,10 @@
           <h2>{{event.start}}</h2>
         </div>
         <div class="description">
-          <h3><a href="get_event/{{ event.id }}/">{{event.name}}</a></h3>
+          <h3><a href="{% url 'getEvent' id=event.id %}">{{event.name}}</a></h3>
           <p>{{event.location}}</p>
           <button class="buy" >
-            <a href="get_event/{{ event.id }}/">
+            <a href="{% url 'getEvent' id=event.id %}">
             Get Ticket
             </a>
           </button>
@@ -54,12 +54,24 @@
     <h2 class=" upcoming-event" >EVENTS BY CATEGORIES</h2>
   </div>
   <div class="row list-categories">
-    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/concert.png' %}');"><a href="#">CONCERTS</a></div>
-    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/community.png' %}');"><a href="#">COMMUNITIES</a></div>
-    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/classes.png' %}');"><a href="#">CLASSES</a></div>
-    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/party.png' %}');"><a href="#">PARTIES</a></div>
-    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/theater.png' %}');"><a href="#">THEATERS</a></div>
-    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/sport.png' %}');"><a href="#">SPORTS</a></div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/concert.png' %}');">
+      <a href="{% url 'categoryEvents' type='Concert' %}">CONCERTS</a>
+    </div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/community.png' %}');">
+      <a href="{% url 'categoryEvents' type='Communities' %}">COMMUNITIES</a>
+    </div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/classes.png' %}');">
+      <a href="{% url 'categoryEvents' type='Classes' %}">CLASSES</a>
+    </div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/party.png' %}');">
+      <a href="{% url 'categoryEvents' type='Parties' %}">PARTIES</a>
+    </div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/theater.png' %}');">
+      <a href="{% url 'categoryEvents' type='Theaters' %}">THEATERS</a>
+    </div>
+    <div class="col-xs-12 col-md-4 col-sm-4 my-3 mx-3 category-item" style="background-image: url('{% static 'images/sport.png' %}');">
+      <a href="{% url 'categoryEvents' type='Sport' %}">SPORTS</a>
+    </div>
   </div>
 </div>
 <div class="container">

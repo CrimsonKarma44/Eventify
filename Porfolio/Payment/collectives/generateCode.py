@@ -2,13 +2,10 @@ import qrcode
 import io
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.utils.safestring import mark_safe
 
 class GenerateCode:
 
-    def genQRCode(email, eventName, amountPaid, code, ticketName ):
+    def genQRCode(email, eventName, amountPaid, code, ticketName, quantity ):
         # generate qrcode
         url = 'http://192.168.5.148:8000/payment/present/{}/{}/'.format(email, code)
         data = {
@@ -17,6 +14,7 @@ class GenerateCode:
             'Amount': amountPaid,
             'SecretCode': code,
             'Ticket': ticketName,
+            'Quantity': quantity,
             'url': url
         }
 
