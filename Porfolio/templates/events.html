@@ -1,0 +1,32 @@
+{% extends 'main.html' %} {% block content %} 
+{% load static %}
+
+
+<div class="inner-container mb-3">
+    <div class="form-group mb-5">
+        <input type="text" class="form-control" id="search-event" placeholder="Search event" />
+    </div>
+  <h2 class=" upcoming-event" >EVENTS</h2>
+  <div class="col-md-12 mt-5">
+    <div class="row events-all-event-con">
+      {% for event in events %}
+      <div class="col-xs-12 col-md-6 event-container" id="event" style="background-image:url('{{event.img.url}}');">
+        <div class="start-date">
+          <h2>{{event.start}}</h2>
+        </div>
+        <div class="description">
+          <h3><a href="{% url 'getEvent' id=event.id %}">{{event.name}}</a></h3>
+          <p>{{event.location}}</p>
+          <button class="buy" >
+            <a href="{% url 'getEvent' id=event.id %}">
+            Get Ticket
+            </a>
+          </button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

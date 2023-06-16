@@ -39,7 +39,10 @@
         <nav class="navigation">
           <ul class="menu">
             <li class="menu-item">
-              <a href="/" class="menu-link">Discover Events</a>
+              <a href="/" class="menu-link">Home</a>
+            </li>
+            <li class="menu-item">
+              <a href="{% url 'all_events' %}" class="menu-link">Discover Events</a>
             </li>
             <li class="menu-item">
               <a href="{% url 'ticket:all_tickets' %}" class="menu-link"

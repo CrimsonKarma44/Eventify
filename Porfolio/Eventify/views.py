@@ -121,3 +121,9 @@ def logout_view(request):
 def myEvents(request):
     title = 'My Events'
     return HttpResponse("This are my events")
+
+def allEvents(request):
+    title = 'All Events'
+    events = Event.objects.all()
+    context = {'events': events, 'title': title}
+    return render(request, 'events.html', context)
