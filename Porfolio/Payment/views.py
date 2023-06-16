@@ -7,21 +7,22 @@ from django.conf import settings
 from Eventify.models import Event
 from django.contrib.auth.models import User
 from Eventify.models import UserProfile
+from .models import Payment
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .collectives.sendCodeToMail import sendCodeToMail
-from .collectives.makePayment import initiate_payment
 # from django.core.mail import send_mail
 # from .collectives.sendMail import SendMail
 
 
 # Create your views here.
 def payment(request, id):
+    title = 'Make payment'
     ticket = Ticket.objects.get(id=id)
     tx_ref = uuid.uuid4().hex[:10]
     context = {'amount': ticket.price, 'event': ticket.event_id.name,
-               'ticket': ticket, 'ticket_id': id, 'tx_ref': tx_ref}
+               'ticket': ticket, 'ticket_id': id, 'tx_ref': tx_ref, 'title': title}
     return render(request, 'payment.html', context)
 
 
@@ -95,7 +96,7 @@ def payment_callback(request, user_id):
         'https://api.paystack.co/transaction/verify/{}'.format(reference), headers=headers)
     res = res.json()
 
-    print(res)
+    # print(res)
 
     status = res['data']['status']
     # # You can verify the payment status and update your database accordingly
@@ -110,12 +111,6 @@ def payment_callback(request, user_id):
         code = str(genCode)
         amount = amount/100
         ticket = Ticket.objects.get(id=ticket_id)
-        # print(ticket)
-        # print(amount)
-        # print(email)
-        # print(phone_no)
-        # print(quantity)
-        # print(code)
 
         payment = Payment(
             ticket_id=ticket,
@@ -124,16 +119,19 @@ def payment_callback(request, user_id):
             code=code,
             phone_no=phone_no,
             transaction_id=transaction_id
-            )
+        )
         payment.save()
         if ticket is not None:
             event = ticket.event_id.name
-            ticket.quantity_available = ticket.quantity_available - int(quantity)
+            ticket.quantity_available = ticket.quantity_available - \
+                int(quantity)
             ticket.save()
-            sent_count = sendCodeToMail(email, event, amount, code, ticket.name, quantity)
+            sent_count = sendCodeToMail(
+                email, event, amount, code, ticket.name, quantity)
             if sent_count == 1:
                 # Email was sent successfully
-                messages.success(request, f"Payment successful, check your email: {email} for the ticket")
+                messages.success(
+                    request, f"Payment successful, check your email: {email} for the ticket")
             else:
                 # Email sending failed
                 messages.error(request, "Failed to send email")
@@ -171,19 +169,10 @@ def send_email(request):
     return redirect('/')
 
 
-def getCode(request):
-    genCode = uuid.uuid4()
-    code = str(genCode)
-    email = 'charlykso121@gmail.com'
-    eventName = 'New Year Event'
-    amountPaid = 2700
-    ticketName = 'regular'
-
-    response = GenerateCode.genQRCode(
-        email, eventName, amountPaid, code, ticketName)
-
-    return response
-
-
 def present(request, email, code):
+    payment = Payment.objects.get(code=code)
+    if payment.present == True:
+        return HttpResponse('{} is already present'.format(payment.email))
+    payment.present = True
+    payment.save()
     return HttpResponse('You are welcome: {} and your code is {}'.format(email, code))

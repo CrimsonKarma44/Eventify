@@ -19,18 +19,35 @@ from .models import Event
 
 def home(request):
     events = Event.objects.all()
-    context = {'events': events[:3]}
+    title = 'Home'
+    context = {'events': events[:3], 'title': title}
     return render(request, 'home.html', context)
 
 
 def eventPage(request, id):
+    title = 'Event page'
     data = Event.objects.get(id=id)
     tickets = Ticket.objects.filter(event_id=data.id)
-    context = {'event': data, 'tickets': tickets}
+    context = {'event': data, 'tickets': tickets, 'title': title}
     return render(request, 'eventpage.html', context)
 
-def myEvents(request):
-    return HttpResponse('This is my events')
+def eventCategory(request, type):
+    title = f'{type} Events'
+    fullType = type
+    if type == 'Concert':
+        type = 'Con'
+    elif type == 'Communities':
+        type = 'Com'
+    elif type == 'Classes':
+        type = 'Cl'
+    elif type == 'Parties':
+        type = 'P'
+    elif type == 'Sport':
+        type = 'S'
+    events = Event.objects.filter(type=type)
+    # print(events)
+    context = {'events': events, 'mainType': fullType, 'title': title}
+    return render(request, 'eventCategory.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -87,3 +104,7 @@ def profile_update_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+def myEvents(request):
+    title = 'My Events'
+    return HttpResponse("This are my events")

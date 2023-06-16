@@ -48,12 +48,12 @@
 .start-date{
     width: 108px;
     height: 100px;
-    background: rgba(0, 0, 0, 0.57);
+    background: rgba(0, 0, 0, 0.80);
     mix-blend-mode: multiply;
     border-radius: 0px 0px 20px 20px;
     color: #fff;
 }
-.start-date h2{
+.start-date>h2{
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
@@ -230,4 +230,49 @@
 .payment-details{
     display: flex;
     justify-content: space-between;
+}
+
+/* for eventcategory */
+
+.eventCategory{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+/* for the nav */
+
+.navigation{
+    align-self: center;
+    height: 100%;
+}
+.navigation ul li a{
+    color: linear-gradient(270deg, #EF924B 0%, #C52553 100%);;
+}
+.navigation ul li a:hover{
+    text-decoration: none;
+}
+.navigation ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* for all tickets */
+.allticket-main {
+    display: flex;
+    flex-wrap: wrap;
+}
+.inside-allticket{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.allticket-right {
+    width: 300px;
+    background-position: center;
+    background-size: cover;
 }
