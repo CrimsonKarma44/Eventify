@@ -7,6 +7,7 @@
       <link rel="stylesheet" href="{% static 'style/header_footer.css' %}" />
       <link rel="stylesheet" href="{% static 'style/form.css' %}" />
       <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+      <link rel="stylesheet" href="{% static 'style/register.css' %}" />
       <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
       <link
          rel="stylesheet"
@@ -40,9 +41,15 @@
                   <li class="menu-item">
                      <a href="/tickets/" class="menu-link">Buy Tickets</a>
                   </li>
+                  {% if user.is_authenticated %}
+                  <li class="menu-item">
+                     <a href="/logout/" class="menu-link">Log Out</a>
+                  </li>
+                  {% else %}
                   <li class="menu-item">
                      <a href="/register/" class="menu-link">For Organizers</a>
                   </li>
+                  {% endif %}
                </ul>
             </nav>
          </header>
