@@ -93,6 +93,11 @@ def login_view(request):
 
 @login_required
 def create_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('home')
     form = EventForm()
     context = {'form': form}
     return render(request, 'event-create.html', context)
@@ -121,6 +126,7 @@ def logout_view(request):
 def myEvents(request):
     title = 'My Events'
     return HttpResponse("This are my events")
+
 
 def allEvents(request):
     title = 'All Events'
