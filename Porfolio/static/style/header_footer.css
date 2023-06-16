@@ -14,21 +14,13 @@
     height: 50px;
   }
   
-  .navigation {
-    margin-left: 20px;
-  }
-  
   .menu {
     list-style: none;
     display: flex;
   }
   
-  .menu-item {
-    margin-right: 15px;
-  }
-  
   .menu-link {
-    color: #333333;
+    color: #333;
     text-decoration: none;
   }
   

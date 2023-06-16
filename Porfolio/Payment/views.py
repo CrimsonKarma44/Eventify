@@ -18,10 +18,11 @@ from .collectives.sendCodeToMail import sendCodeToMail
 
 # Create your views here.
 def payment(request, id):
+    title = 'Make payment'
     ticket = Ticket.objects.get(id=id)
     tx_ref = uuid.uuid4().hex[:10]
     context = {'amount': ticket.price, 'event': ticket.event_id.name,
-               'ticket': ticket, 'ticket_id': id, 'tx_ref': tx_ref}
+               'ticket': ticket, 'ticket_id': id, 'tx_ref': tx_ref, 'title': title}
     return render(request, 'payment.html', context)
 
 

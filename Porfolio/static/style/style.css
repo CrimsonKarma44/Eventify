@@ -239,3 +239,40 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
+
+/* for the nav */
+
+.navigation{
+    align-self: center;
+    height: 100%;
+}
+.navigation ul li a{
+    color: linear-gradient(270deg, #EF924B 0%, #C52553 100%);;
+}
+.navigation ul li a:hover{
+    text-decoration: none;
+}
+.navigation ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* for all tickets */
+.allticket-main {
+    display: flex;
+    flex-wrap: wrap;
+}
+.inside-allticket{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+.allticket-right {
+    width: 300px;
+    background-position: center;
+    background-size: cover;
+}

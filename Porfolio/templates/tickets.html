@@ -1,0 +1,31 @@
+{% extends 'main.html' %} {% block content %}
+<div>
+   <h1>{{event.name}}</h1>
+   <hr />
+   <p>{{event.description}}</p>
+   <hr />
+   <h2 class="tickets-heading">Tickets:</h2>
+   <div class="allticket-main">
+       {% for ticket in tickets %}
+          <div class="col-xs-12 col-md-6 col-sm-12 inside-allticket ">
+             <div class="allticket-left">
+                <p>Name: {{ ticket.name }}</p>
+                <p>Type: {{ ticket.ticket_type }}</p>
+                <p>Price: &#x20a6;{{ ticket.price }}</p>
+                <p>Remaining tickets: {{ ticket.quantity_available }}</p>
+                {% if ticket.quantity_available > 0 %}
+                   <a type="button" class="purchase-button" href="/payment/ticket/{{ ticket.id }}/purchase/">Purchase</a>
+                {% else %}
+                   <p>Sold Out</p>
+                {% endif %}
+             </div>
+             <div class="allticket-right" style="background-image:url('{{ticket.event_id.img.url}}');">
+                {% comment %} <img src="{% url 'event.img.url' %}" /> {% endcomment %}
+             </div>
+          </div>
+       {% empty %}
+          <p>No tickets available for this event.</p>
+       {% endfor %}
+   </div>
+</div>
+{% endblock %}
