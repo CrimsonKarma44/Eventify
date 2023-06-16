@@ -27,5 +27,19 @@ def eventPage(request, id):
     context = {'event': data, 'tickets': tickets}
     return render(request, 'eventpage.html', context)
 
-def myEvents(request):
-    return HttpResponse('This is my events')
+def eventCategory(request, type):
+    fullType = type
+    if type == 'Concert':
+        type = 'Con'
+    elif type == 'Communities':
+        type = 'Com'
+    elif type == 'Classes':
+        type = 'Cl'
+    elif type == 'Parties':
+        type = 'P'
+    elif type == 'Sport':
+        type = 'S'
+    events = Event.objects.filter(type=type)
+    # print(events)
+    context = {'events': events, 'mainType': fullType}
+    return render(request, 'eventCategory.html', context)

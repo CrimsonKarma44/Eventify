@@ -48,12 +48,12 @@
 .start-date{
     width: 108px;
     height: 100px;
-    background: rgba(0, 0, 0, 0.57);
+    background: rgba(0, 0, 0, 0.80);
     mix-blend-mode: multiply;
     border-radius: 0px 0px 20px 20px;
     color: #fff;
 }
-.start-date h2{
+.start-date>h2{
     font-family: 'Inter';
     font-style: normal;
     font-weight: 700;
@@ -230,4 +230,12 @@
 .payment-details{
     display: flex;
     justify-content: space-between;
+}
+
+/* for eventcategory */
+
+.eventCategory{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
