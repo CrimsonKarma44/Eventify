@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="login-container">
-    <h2>Login</h2>
+    <h2 class="log-in-heade">Login</h2>
     <form method="POST" action="{% url 'login' %}">
       {% csrf_token %}
       {{ form.as_p }}

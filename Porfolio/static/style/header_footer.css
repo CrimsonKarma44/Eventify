@@ -9,6 +9,11 @@
     background-color: #ffffff;
   }
   
+  .navigation {
+    display: flex;
+    justify-content: flex-end; /* Align menu to the right */
+  }
+  
   .logo-image {
     width: auto;
     height: 50px;
