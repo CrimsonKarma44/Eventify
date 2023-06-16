@@ -31,6 +31,7 @@ def eventPage(request, id):
     context = {'event': data, 'tickets': tickets, 'title': title}
     return render(request, 'eventpage.html', context)
 
+
 def eventCategory(request, type):
     title = f'{type} Events'
     fullType = type
@@ -48,6 +49,7 @@ def eventCategory(request, type):
     # print(events)
     context = {'events': events, 'mainType': fullType, 'title': title}
     return render(request, 'eventCategory.html', context)
+
 
 def register(request):
     if request.method == 'POST':
@@ -72,6 +74,7 @@ def register(request):
 
     return render(request, 'register.html', context)
 
+
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -84,8 +87,16 @@ def login_view(request):
                 return redirect('profile_update')
     else:
         form = LoginForm()
-    
+
     return render(request, 'login.html', {'form': form})
+
+
+@login_required
+def create_event(request):
+    form = EventForm()
+    context = {'form': form}
+    return render(request, 'event-create.html', context)
+
 
 @login_required
 def profile_update_view(request):
@@ -98,12 +109,14 @@ def profile_update_view(request):
             return redirect('profile_update')
     else:
         form = ProfileUpdateForm(instance=user.userprofile)
-    
+
     return render(request, 'profile_update.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)
     return redirect('/')
+
 
 def myEvents(request):
     title = 'My Events'

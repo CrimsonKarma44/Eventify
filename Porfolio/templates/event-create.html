@@ -1,17 +1,19 @@
 {% extends 'main.html' %} {% block content %}
-<div  id="form">
+<style>
+   .home-container {
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+   }
+</style>
+<div class="registration-container">
+   <h2>EVENT</h2>
    <form action="" method="POST" >
       {%csrf_token%}
-      <div class="col-12">
-         <label for="name" class="form-label">Name <input class="form-control" type="text" placeholder="Event Name" name="name" required />
-         </label>
-      </div>
-      <div class="col-12" >
-         <label for="description" class="form-label">Description <textarea class="form-control" name="description" id="description" cols="20" rows="5" required></textarea>
-      </div>
+      <label for="name" class="form-label home-container">Name: <input class="form-control" type="text" placeholder="Event Name" name="name" required /></label>
+      <label for="description" class="form-label ">Description: <textarea class="form-control" name="description" id="description" cols="20" rows="5" required></textarea>
       <div class="col12" class="form-label">
-         <label>
-            Type
+         <label class="home-container">
+            Type:
             <select class="form-control" name="type" id="" required>
                <option value="Con">Concert</option>
                <option value="Com">Communities</option>
@@ -22,24 +24,16 @@
          </label>
       </div>
 
+      <label for="location" class="form-label home-container">Location: <input class="form-control" type="text" name="location" placeholder="Event Name" required />
+      </label>
       <div class="col-12">
-         <label for="location" class="form-label">Location 
-            <input class="form-control" type="text" name="location" placeholder="Event Name" required />
+         <label for="" class="form-label home-container">Start: <input class="form-control" type="datetime-local" name="start" id="" required>
          </label>
       </div>
       <div class="col-12">
-         <label for="" class="form-label">Start <input class="form-control" type="datetime-local" name="start" id="" required>
-         </label>
+      <label for="" class="form-label home-container">End: <input class="form-control" type="datetime-local" name="end" id="" required></label>
       </div>
-      <div class="col-12">
-         <label for="" class="form-label">End <input class="form-control" type="datetime-local" name="end" id="" required>
-         </label>
-      </div>
-      <br>
-      <br>
-      <div class="col-12">
-         <button class="btn btn-primary"  type="submit">Submit</button>
-      </div>
+      <button type="submit">Submit</button>
    </form>
 </div>
 {% endblock %}
