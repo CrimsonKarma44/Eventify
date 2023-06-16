@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
 
@@ -19,17 +19,20 @@ from .models import Event
 
 def home(request):
     events = Event.objects.all()
-    context = {'events': events[:3]}
+    title = 'Home'
+    context = {'events': events[:3], 'title': title}
     return render(request, 'home.html', context)
 
 
 def eventPage(request, id):
+    title = 'Event page'
     data = Event.objects.get(id=id)
     tickets = Ticket.objects.filter(event_id=data.id)
-    context = {'event': data, 'tickets': tickets}
+    context = {'event': data, 'tickets': tickets, 'title': title}
     return render(request, 'eventpage.html', context)
 
 def eventCategory(request, type):
+    title = f'{type} Events'
     fullType = type
     if type == 'Concert':
         type = 'Con'
@@ -43,7 +46,7 @@ def eventCategory(request, type):
         type = 'S'
     events = Event.objects.filter(type=type)
     # print(events)
-    context = {'events': events, 'mainType': fullType}
+    context = {'events': events, 'mainType': fullType, 'title': title}
     return render(request, 'eventCategory.html', context)
 
 def register(request):
@@ -97,3 +100,11 @@ def profile_update_view(request):
         form = ProfileUpdateForm(instance=user.userprofile)
     
     return render(request, 'profile_update.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+def myEvents(request):
+    title = 'My Events'
+    return HttpResponse("This are my events")
