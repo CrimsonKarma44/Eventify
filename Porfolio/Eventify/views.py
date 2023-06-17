@@ -84,7 +84,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('profile_update')
+                return redirect('myEvents')
     else:
         form = LoginForm()
 
@@ -125,14 +125,18 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-
+@login_required(login_url='/login')
 def myEvents(request):
     title = 'My Events'
-    return HttpResponse("This are my events")
-
+    events = Event.objects.filter(user=request.user.id)
+    context = {'events': events, 'title': title}
+    return render(request, 'myEvents.html', context)
 
 def allEvents(request):
     title = 'All Events'
     events = Event.objects.all()
     context = {'events': events, 'title': title}
     return render(request, 'events.html', context)
+
+def updateEvent(request, id):
+    return HttpResponse('Update event')
