@@ -15,5 +15,8 @@
       <button type="submit">Login</button>
     </form>
   </div>
+  {% for message in messages %}
+    <p style="text-align:center; color: red"> {{message}} </p>
+  {% endfor %}
 </body>
 </html>

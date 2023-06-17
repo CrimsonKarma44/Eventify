@@ -243,20 +243,21 @@
 
 /* for the nav */
 
-.navigation{
+/* .navigation{
     align-self: center;
     height: 100%;
-}
+} */
 .navigation ul li a{
     color: linear-gradient(270deg, #EF924B 0%, #C52553 100%);;
 }
 .navigation ul li a:hover{
     text-decoration: none;
 }
-.navigation ul{
+.navigation>ul{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
 }
 
 /* for all tickets */
@@ -275,4 +276,14 @@
     width: 300px;
     background-position: center;
     background-size: cover;
+}
+
+/* for my events on organisers page */
+div.main-createButton{
+    display: flex;
+    justify-content: space-between;
+}
+.button-part button {
+    background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
+    border-radius: 12px;
 }

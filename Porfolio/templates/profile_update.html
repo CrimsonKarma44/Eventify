@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<p style="text-align: right;"><a href="{% url 'logout' %}">Logout</a></p>
 <h2>Update Profile</h2>
 <form method="POST" action="{% url 'profile_update' %}">
   {% csrf_token %}

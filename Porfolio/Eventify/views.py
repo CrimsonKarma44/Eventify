@@ -85,21 +85,25 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('profile_update')
+                return redirect('myEvents')
             if user is None:
                 messages.add_message(request, messages.ERROR, "invalid credentials")
                 return redirect('login')
+                
     else:
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
 
 
-@login_required
+@login_required(login_url='/login')
 def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid:
+            # event = form.save(commit=False)
+            # event.user = request.user
+            # event.save()
             form.save()
             return redirect('home')
     form = EventForm()
@@ -126,14 +130,18 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-
+@login_required(login_url='/login')
 def myEvents(request):
     title = 'My Events'
-    return HttpResponse("This are my events")
-
+    events = Event.objects.filter(user=request.user.id)
+    context = {'events': events, 'title': title}
+    return render(request, 'myEvents.html', context)
 
 def allEvents(request):
     title = 'All Events'
     events = Event.objects.all()
     context = {'events': events, 'title': title}
     return render(request, 'events.html', context)
+
+def updateEvent(request, id):
+    return HttpResponse('Update event')

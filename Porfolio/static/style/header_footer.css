@@ -9,12 +9,6 @@
     background-color: #ffffff;
   }
   
-  .navigation {
-    display: flex;
-    justify-content: space-between; /* Align menu to the right */
-  }
-  
-  
   .logo-image {
     width: auto;
     height: 50px;
@@ -30,7 +24,7 @@
     text-decoration: none;
   }
   .menu-item {
-    margin-right: 15px; /* Adjust the margin value as needed */
+    margin-right: 15px; 
   }
 
   /* Footer Styles */
