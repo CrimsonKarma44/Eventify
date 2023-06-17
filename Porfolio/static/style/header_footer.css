@@ -11,8 +11,9 @@
   
   .navigation {
     display: flex;
-    justify-content: flex-end; /* Align menu to the right */
+    justify-content: space-between; /* Align menu to the right */
   }
+  
   
   .logo-image {
     width: auto;
@@ -28,7 +29,10 @@
     color: #333;
     text-decoration: none;
   }
-  
+  .menu-item {
+    margin-right: 15px; /* Adjust the margin value as needed */
+  }
+
   /* Footer Styles */
 
   .footer {

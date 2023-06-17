@@ -11,4 +11,5 @@ urlpatterns = [
     path('profile/update/', views.profile_update_view, name='profile_update'),
     path('profile/create-event/', views.create_event, name='create-event'),
     path('logout/', views.logout_view, name='logout'),
+    path('all_events/', views.allEvents, name='all_events')
 ]

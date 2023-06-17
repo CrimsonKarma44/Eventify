@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
+from django.contrib import messages
 
 from Ticket.models import Ticket
 from .forms import EventForm, ProfileUpdateForm, LoginForm
@@ -85,6 +86,9 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect('profile_update')
+            if user is None:
+                messages.add_message(request, messages.ERROR, "invalid credentials")
+                return redirect('login')
     else:
         form = LoginForm()
 
