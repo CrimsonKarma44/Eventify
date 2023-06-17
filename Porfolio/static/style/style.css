@@ -194,6 +194,14 @@
     padding: 5px 10px;
     color: #000;
 }
+.create-ticket{
+    background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
+    border-radius: 12px;
+    padding: 5px 10px;
+    color: #000;
+    margin-top: 15px;
+}
+
 .ticket-main{
     display: flex;
     justify-content: space-between;

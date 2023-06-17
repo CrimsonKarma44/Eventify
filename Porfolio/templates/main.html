@@ -50,6 +50,9 @@
             </li>
             {% if user.is_authenticated %}
             <li class="menu-item">
+              <a href="{% url 'myEvents' %}" class="menu-link">My Events</a>
+            </li>
+            <li class="menu-item">
               <a href="{% url 'logout' %}" class="menu-link">Logout</a>
             </li>
             {% else %}

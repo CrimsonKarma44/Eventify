@@ -145,3 +145,10 @@ def allEvents(request):
 
 def updateEvent(request, id):
     return HttpResponse('Update event')
+
+def eventTickets(request, id):
+    title = 'Tickets'
+    tickets = Ticket.objects.filter(event_id=id)
+    event = Event.objects.get(id=id)
+    context = {'tickets': tickets, 'title': title, 'event':event}
+    return render(request, 'eventTickets.html', context)

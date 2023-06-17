@@ -28,6 +28,11 @@
             Edit event
             </a>
           </button>
+          <button class="buy" >
+            <a href="{% url 'viewEventTickets' id=event.id %}">
+            View Tickets
+            </a>
+          </button>
         </div>
       </div>
       {% empty %}
