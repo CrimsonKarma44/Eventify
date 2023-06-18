@@ -1,12 +1,6 @@
+{% extends 'main.html' %} {% block content %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'style/login.css' %}">
-</head>
-<body>
+
   <div class="login-container">
     <h2 class="log-in-heade">Login</h2>
     <form method="POST" action="{% url 'login' %}">
@@ -14,9 +8,12 @@
       {{ form.as_p }}
       <button type="submit">Login</button>
     </form>
+    <div class="form-divider">
+      <p>Don't have an account? <a href="{% url 'register' %}" class="register-link">Create account</a></p>
+    </div>
   </div>
   {% for message in messages %}
     <p style="text-align:center; color: red"> {{message}} </p>
   {% endfor %}
-</body>
-</html>
+
+{% endblock %}
