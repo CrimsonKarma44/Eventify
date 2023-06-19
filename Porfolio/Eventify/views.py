@@ -99,14 +99,19 @@ def login_view(request):
 @login_required(login_url='/login')
 def create_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST)
-        if form.is_valid:
-            # event = form.save(commit=False)
-            # event.user = request.user
-            # event.save()
-            form.save()
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            #print(request.user, type(request.user))
+            event = form.save(commit=False)
+            event.user = request.user
+            event.save()
+            #form.save()
             return redirect('home')
-    form = EventForm()
+        else:
+            print(form.errors)
+            print("binfff") 
+    else:
+        form = EventForm()
     context = {'form': form}
     return render(request, 'event-create.html', context)
 

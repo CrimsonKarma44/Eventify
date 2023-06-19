@@ -8,7 +8,7 @@
 {% if request.user.is_authenticated %}
 <div class="registration-container">
    <h2>EVENT</h2>
-   <form action="" method="POST" >
+   <form action="{% url 'create-event' %}" method="POST" enctype="multipart/form-data">
       {%csrf_token%}
       {{form.as_p}}
 
