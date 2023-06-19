@@ -21,7 +21,11 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = '__all__'
-        # exclude = ['user']
+        exclude = ['user']
+        widgets = {
+            'start': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
 
 class ProfileUpdateForm(forms.ModelForm):
     secret_key = forms.CharField(max_length=100)
