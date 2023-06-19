@@ -11,33 +11,6 @@
    <form action="{% url 'create-event' %}" method="POST" enctype="multipart/form-data">
       {%csrf_token%}
       {{form.as_p}}
-
-      <!-- <label for="name" class="form-label home-container">Name: <input class="form-control" type="text" placeholder="Event Name" name="name" required /></label>
-      <label for="description" class="form-label ">Description: <textarea class="form-control" name="description" id="description" cols="20" rows="5" required></textarea>
-         <div class="col12" class="form-label">
-            <label class="home-container">
-               Type:
-               <select class="form-control" name="type" id="" required>
-                  <option value="Con">Concert</option>
-               <option value="Com">Communities</option>
-               <option value="Cl">Classes</option>
-               <option value="P">Parties</option>
-               <option value="S">Sport</option>
-            </select>
-         </label>
-      </div>
-      <div>
-         <label class="form-label home-container" for="image">Image: <input type="file" name="img" ></label>
-      </div>
-      <label for="location" class="form-label home-container">Location: <input class="form-control" type="text" name="location" placeholder="Event Name" required />
-      </label>
-      <div class="col-12">
-         <label for="" class="form-label home-container">Start: <input class="form-control" type="datetime-local" name="start" id="" required>
-         </label>
-      </div>
-      <div class="col-12">
-      <label for="" class="form-label home-container">End: <input class="form-control" type="datetime-local" name="end" id="" required></label>
-   </div> -->
    <button type="submit">Submit</button>
 </form>
 </div>

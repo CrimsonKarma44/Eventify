@@ -5,6 +5,9 @@
     margin: auto;
     /* background-color: red; */
 }
+.small-nav{
+    display: none !important;
+}
 .see-upcoming-event{
     font-style: normal;
     font-weight: 700;
@@ -135,7 +138,7 @@
 /* footer styling */
 .footer {
     width: 100%;
-    height: 250px;
+    /* height: 250px; */
     padding: 20px 0;
     background-position: center;
     background-size: cover;
@@ -305,8 +308,62 @@ div.main-createButton{
     justify-content: space-between;
     align-items: center;
 }
+
 @media (min-width: 768px) {
     .allticket-left>a.update_button{
         margin-bottom: 5px;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .small-nav {
+        display: flex !important;
+        padding: 0;
+    }
+    .navbar{
+        padding: 1rem 0.2rem !important;
+    }
+    .logo{
+        display: none;
+    }
+    .navigation {
+        display: none;
+    }
+    .footer-bottom{
+        flex-direction: column;
+        padding-top: 0;
+    }
+    footer{
+        padding-bottom: 20px;
+    }
+    .footer{
+        height: inherit;
+    }
+    .footer-menu{
+        display: none;
+    }
+    .all-event-con>div:first-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .all-event-con>div:last-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .small-nav{
+        width: 100%;
+    }
+    .nav-container{
+        display: flex;
+        justify-content: space-between;
+        width: inherit;
+    }
+    .inner-navebar{
+        text-align: center;
+    }
+    .ham-button{
+        margin-bottom: 10px;
     }
 }

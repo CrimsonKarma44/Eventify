@@ -26,7 +26,7 @@
 
   <body>
     <div class="container">
-      <header class="header navbar mb-3 p-3">
+      <header class="header navbar mb-3 p-0">
         <div class="logo">
           <a href="/" class="logo-link">
             <img
@@ -63,6 +63,43 @@
             {% endif %}
           </ul>
         </nav>
+        <div class="navbar navbar-expand-lg navbar-light bg-light small-nav">
+          <a class="navbar-brand" href="/">
+            <img
+              src="{% static 'images/logo.png' %}"
+              alt="Eventify Logo"
+              class="logo-image"
+            />
+          </a>
+          <button class="navbar-toggler ham-button" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse inner-navebar" id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'allEvents' %}">Discover Events</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{% url 'ticket:all_tickets' %}">Buy Tickets</a>
+                  </li>
+                  {% if user.is_authenticated %}
+                  <li class="nav-link">
+                    <a href="{% url 'myEvents' %}" class="">My Events</a>
+                  </li>
+                  <li class="nav-link">
+                    <a href="{% url 'logout' %}" class="">Logout</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-link">
+                    <a href="{% url 'myEvents' %}" class="">For Organizers</a>
+                  </li>
+                  {% endif %}
+              </ul>
+            </div>
+        </div>
       </header>
       <div class="main-container p-3">{% block content %} {% endblock%}</div>
       <footer
