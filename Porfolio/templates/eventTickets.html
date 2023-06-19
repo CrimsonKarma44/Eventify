@@ -5,8 +5,13 @@
    <div class="form-group">
       <input type="text" class="form-control" id="search-ticket" placeholder="Search ticket" />
    </div>
+   <div class="create_ticket_main">
+      <h2 class="tickets-heading">Tickets:</h2>
+      <div class="create_ticket_link">
+         <a type="button" class="create-ticket" href="{% url 'ticket:create_ticket' event_name=event.name %}">Create a Ticket</a>
+      </div>
+   </div>
    <hr />
-   <h2 class="tickets-heading">Tickets:</h2>
    <div class="allticket-main">
        {% for ticket in tickets %}
           <div class="col-xs-12 col-md-6 col-sm-12 inside-allticket ">
@@ -16,8 +21,8 @@
                 <p>Price: &#x20a6;{{ ticket.price }}</p>
                 <p>Remaining tickets: {{ ticket.quantity_available }}</p>
                 {% if ticket.quantity_available > 0 %}
-                   <a type="button" class="purchase-button" href="{% url 'ticket:update_ticket' id=ticket.id %}">Update</a>
-                   <a type="button" class="purchase-button" href="{% url 'ticket:delete_ticket' id=ticket.id %}">Delete</a>
+                   <a type="button" class="purchase-button update_button" href="{% url 'ticket:update_ticket' id=ticket.id %}">Update</a>
+                   <a type="button" class="purchase-button delete_button" href="{% url 'ticket:delete_ticket' id=ticket.id %}">Delete</a>
                 {% else %}
                    <p>Sold Out</p>
                 {% endif %}
@@ -30,6 +35,6 @@
           <p>No tickets available for this event.</p>
        {% endfor %}
    </div>
-   <a type="button" class="create-ticket" href="{% url 'ticket:create_ticket' event_name=event.name %}">Create a Ticket</a>
+   
 </div>
 {% endblock %}

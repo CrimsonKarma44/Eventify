@@ -185,9 +185,9 @@
 } */
 
 /* single event styling */
-.tickets-heading{
+/* .tickets-heading{
     border-bottom: 1px solid #E5DFDF;
-}
+} */
 .purchase-button{
     background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
     border-radius: 12px;
@@ -199,7 +199,6 @@
     border-radius: 12px;
     padding: 5px 10px;
     color: #000;
-    margin-top: 15px;
 }
 
 .ticket-main{
@@ -277,8 +276,12 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #333;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     padding-bottom: 5px;
+}
+
+.inside-allticket a:nth-child(1) {
+    margin-bottom: 15px;
 }
 .allticket-right {
     width: 300px;
@@ -294,4 +297,16 @@ div.main-createButton{
 .button-part button {
     background: linear-gradient(270deg, #EF924B 0%, #C52553 100%);
     border-radius: 12px;
+}
+
+/* for create ticket  */
+.create_ticket_main{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+@media (min-width: 768px) {
+    .allticket-left>a.update_button{
+        margin-bottom: 5px;
+    }
 }
