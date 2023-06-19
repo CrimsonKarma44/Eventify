@@ -13,6 +13,7 @@ from django.contrib import messages
 from Ticket.models import Ticket
 from .forms import EventForm, ProfileUpdateForm, LoginForm, EventUpdateForm
 from .models import Event
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -156,8 +157,13 @@ def updateEvent(request, id):
     if request.method == 'POST':
         form = EventUpdateForm(request.POST, instance=event)
         if form.is_valid():
-            e = form.save(commit=False)
-            print(e.img.url)
+            form.save()
+            if request.FILES['img']:
+                img = request.FILES['img']
+                fs = FileSystemStorage()
+                file = fs.save(img.name, img)
+                fileurl = fs.url(file)
+                Event.objects.filter(id=id).update(img=img)
             return redirect('myEvents')
     else:
         form = EventUpdateForm(instance=event)
