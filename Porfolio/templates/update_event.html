@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<div class="registration-container">
+    <h2>Update Event</h2>
+    <form method="POST" action="{% url 'updateEvent' event.id %}">
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit">Update</button>
+    </form>
+</div>
+{% endif %}
+{% endblock content %}

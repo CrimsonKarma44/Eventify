@@ -11,7 +11,7 @@ from .forms import RegistrationForm
 from django.contrib import messages
 
 from Ticket.models import Ticket
-from .forms import EventForm, ProfileUpdateForm, LoginForm
+from .forms import EventForm, ProfileUpdateForm, LoginForm, EventUpdateForm
 from .models import Event
 
 
@@ -143,8 +143,21 @@ def allEvents(request):
     context = {'events': events, 'title': title}
     return render(request, 'events.html', context)
 
+@login_required(login_url='/login')
 def updateEvent(request, id):
-    return HttpResponse('Update event')
+    title = 'Update Events'
+    event = Event.objects.get(id=id)
+    
+    if request.method == 'POST':
+        form = EventUpdateForm(request.POST, instance=event)
+        if form.is_valid():
+            e = form.save(commit=False)
+            print(e.img.url)
+            return redirect('myEvents')
+    else:
+        form = EventUpdateForm(instance=event)
+    
+    return render(request, 'update_event.html', {'form': form, 'event': event, 'title': title})
 
 def eventTickets(request, id):
     title = 'Tickets'

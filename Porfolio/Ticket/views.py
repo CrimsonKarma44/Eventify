@@ -18,6 +18,7 @@ def allTickets(request):
 
 @login_required
 def create_ticket(request, event_name):
+    title = 'Create ticket'
     if request.method == 'POST':
         event = Event.objects.get(name=event_name)
         form = TicketCreationForm(request.POST)
@@ -30,10 +31,11 @@ def create_ticket(request, event_name):
     else:
         form = TicketCreationForm()
     
-    return render(request, 'create_ticket.html', {'form': form, 'event_name':event_name})
+    return render(request, 'create_ticket.html', {'form': form, 'event_name':event_name, 'title': title})
 
 @login_required
 def update_ticket(request, id):
+    title = 'Edit ticket'
     ticket = Ticket.objects.get(id=id)
     
     if request.method == 'POST':
@@ -45,7 +47,7 @@ def update_ticket(request, id):
     else:
         form = TicketUpdateForm(instance=ticket)
     
-    return render(request, 'update_ticket.html', {'form': form, 'ticket': ticket})
+    return render(request, 'update_ticket.html', {'form': form, 'ticket': ticket, 'title': title})
 
 @login_required
 def delete_ticket(request, id):

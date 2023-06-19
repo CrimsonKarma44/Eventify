@@ -23,6 +23,12 @@ class EventForm(ModelForm):
         fields = '__all__'
         # exclude = ['user']
 
+class EventUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = '__all__'
+        exclude = ['user']
+
 class ProfileUpdateForm(forms.ModelForm):
     secret_key = forms.CharField(max_length=100)
     public_key = forms.CharField(max_length=100)
