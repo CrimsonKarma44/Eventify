@@ -15,7 +15,8 @@ class Payment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.ticket_id)
+        ticket_name = self.ticket_id
+        return f"{self.email} {self.price} payment for {ticket_name}"
     
     @classmethod
     def get_payment_by_ticket_id(cls, ticket_id):
