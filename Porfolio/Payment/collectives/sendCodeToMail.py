@@ -3,8 +3,8 @@ from .sendMail import SendMail
 
 def sendCodeToMail(email, eventName, amountPaid, code, ticketName, quantity):
 
-    subject = f'Your ticket for event {eventName}'
-    message = f"Your payment was successfuly recieved, \n amount paid: \u20a6{amountPaid} for the event: {eventName}. Below is your ticket"
+    subject = f'Your ticket for {eventName} event'
+    message = f"Your payment was successfuly recieved. \nAmount paid: \u20a6{amountPaid} for the event: {eventName}. \nBelow is your ticket"
 
     # generate QRCode
     byte_stream = GenerateCode.genQRCode(
