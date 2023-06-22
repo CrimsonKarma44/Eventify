@@ -109,7 +109,7 @@ def create_event(request):
             event.user = request.user
             event.save()
             # form.save()
-            return redirect('home')
+            return redirect('myEvents')
         else:
             print(form.errors)
             print("binfff")
