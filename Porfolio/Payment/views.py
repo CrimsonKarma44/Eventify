@@ -43,7 +43,7 @@ def make_payment(request, id):
     # totalAmount = str(totalAmount)+".00"
     tx_ref = request.POST.get('tx_ref')
     ticket_id = request.POST.get('ticket_id')
-    redirect_url = "http://192.168.5.148:8000/payment/callback/{}".format(
+    redirect_url = "http://192.168.0.112:8000/payment/callback/{}".format(
         event.user.id)
     userData = {
         'email': email,
@@ -123,8 +123,7 @@ def payment_callback(request, user_id):
         payment.save()
         if ticket is not None:
             event = ticket.event_id.name
-            ticket.quantity_available = ticket.quantity_available - \
-                int(quantity)
+            ticket.quantity_available = ticket.quantity_available - int(quantity)
             ticket.save()
             sent_count = sendCodeToMail(
                 email, event, amount, code, ticket.name, quantity)
@@ -172,7 +171,7 @@ def send_email(request):
 def present(request, email, code):
     payment = Payment.objects.get(code=code)
     if payment.present == True:
-        return HttpResponse('{} is already present'.format(payment.email))
+        return HttpResponse('<h1>{} is already present<h1>'.format(payment.email))
     payment.present = True
     payment.save()
-    return HttpResponse('You are welcome: {} and your code is {}'.format(email, code))
+    return HttpResponse('<h1>You are welcome: {} and your code is {}</h1>'.format(email, code))

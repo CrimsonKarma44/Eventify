@@ -1,6 +1,10 @@
 .main-container{
     background: #FFF8F8;
 }
+.header{
+    background-color: #F8F9FA;
+    padding-bottom: 0 !important;
+}
 .inner-container{
     margin: auto;
     /* background-color: red; */
@@ -321,6 +325,13 @@ div.main-createButton{
 }
 
 @media (max-width: 768px) {
+    .container{
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .main-container{
+        padding-top: 0;
+    }
     .small-nav {
         display: flex !important;
         padding: 0;
