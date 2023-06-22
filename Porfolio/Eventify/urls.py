@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.home, name="home"),
     path('get_event/<int:id>/', views.eventPage, name="getEvent"),
+    path('get_event/<int:id>/delete/', views.delete_event, name='delete-event'),
     path('events/category/<str:type>/', views.eventCategory, name="categoryEvents"),
     path('get_myEvents/', views.myEvents, name="myEvents"),
     path('Events/getall', views.allEvents, name="allEvents"),
