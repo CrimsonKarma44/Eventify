@@ -30,7 +30,7 @@ def eventPage(request, id):
     title = 'Event page'
     data = Event.objects.get(id=id)
     tickets = Ticket.objects.filter(event_id=data.id)
-    context = {'event': data, 'tickets': tickets, 'title': title}
+    context = {'event': data, 'tickets': tickets, 'title': title, 'id': id}
     return render(request, 'eventpage.html', context)
 
 
@@ -89,9 +89,10 @@ def login_view(request):
                 login(request, user)
                 return redirect('myEvents')
             if user is None:
-                messages.add_message(request, messages.ERROR, "invalid credentials")
+                messages.add_message(
+                    request, messages.ERROR, "invalid credentials")
                 return redirect('login')
-                
+
     else:
         form = LoginForm()
 
@@ -103,19 +104,29 @@ def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES)
         if form.is_valid():
-            #print(request.user, type(request.user))
+            # print(request.user, type(request.user))
             event = form.save(commit=False)
             event.user = request.user
             event.save()
-            #form.save()
-            return redirect('home')
+            # form.save()
+            return redirect('myEvents')
         else:
             print(form.errors)
-            print("binfff") 
+            print("binfff")
     else:
         form = EventForm()
     context = {'form': form}
     return render(request, 'event-create.html', context)
+
+
+@login_required(login_url='/login')
+def delete_event(request, id):
+    events = Event.objects.get(id=id)
+    if request.method == 'POST':
+        events.delete()
+        return redirect('myEvents')
+    context = {}
+    return render(request, 'event-delete.html', context)
 
 
 @login_required
@@ -137,6 +148,7 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
+
 @login_required(login_url='/login')
 def myEvents(request):
     title = 'My Events'
@@ -144,17 +156,19 @@ def myEvents(request):
     context = {'events': events, 'title': title}
     return render(request, 'myEvents.html', context)
 
+
 def allEvents(request):
     title = 'All Events'
     events = Event.objects.all()
     context = {'events': events, 'title': title}
     return render(request, 'events.html', context)
 
+
 @login_required(login_url='/login')
 def updateEvent(request, id):
     title = 'Update Events'
     event = Event.objects.get(id=id)
-    
+
     if request.method == 'POST':
         form = EventUpdateForm(request.POST, instance=event)
         if form.is_valid():
@@ -168,12 +182,13 @@ def updateEvent(request, id):
             return redirect('myEvents')
     else:
         form = EventUpdateForm(instance=event)
-    
+
     return render(request, 'update_event.html', {'form': form, 'event': event, 'title': title})
+
 
 def eventTickets(request, id):
     title = 'Tickets'
     tickets = Ticket.objects.filter(event_id=id)
     event = Event.objects.get(id=id)
-    context = {'tickets': tickets, 'title': title, 'event':event}
+    context = {'tickets': tickets, 'title': title, 'event': event}
     return render(request, 'eventTickets.html', context)
