@@ -11,24 +11,24 @@
     {% endfor %}
 {% endif %}
 
-<div class="inner-container mb-3 py-3">
+<div class="inner-container mb-3 ">
   <h2 class=" upcoming-event" >UPCOMING EVENTS</h2>
   <div class="row ">
-    <div class="col-md-9">
-      <p>
+    <div class="col-md-9 upcoming-event-text-container">
+      <p class="upcoming-event-text">
         Prepare to immerse yourself in a world of excitement and wonder as we bring
         together the finest artists, innovators, and visionaries from around the
         globe. From captivating performances to thought-provoking talks, this event
         will be a celebration of creativity, inspiration, and human connection
       </p>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 upcoming-event-button">
       <button class="rounded-pill py-2 px-2 see-upcoming-event" >
         SEE ALL UPCOMING EVENTS
       </button>
     </div>
   </div>
-  <div class="col-md-12 mt-5">
+  <div class="col-md-12 mt-4">
     <div class="row all-event-con">
       {% for event in events %}
       <div class="col-xs-12 col-md-4 event-container" id="event" style="background-image:url('{{event.img.url}}');">

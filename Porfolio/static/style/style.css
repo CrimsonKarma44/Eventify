@@ -8,6 +8,15 @@
 .inner-container{
     margin: auto;
     /* background-color: red; */
+    padding: 2rem 0;
+}
+.upcoming-event-text{
+    text-align: justify;
+}
+.upcoming-event-text-container{
+    /* background-color: red; */
+    display: flex;
+    align-items: center;
 }
 .small-nav{
     display: none !important;
@@ -329,6 +338,17 @@ div.main-createButton{
         padding: 0 !important;
         margin: 0 !important;
     }
+    .upcoming-event-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .inner-container{
+        padding: 0;
+    }
+    /* .upcoming-event-button{
+        background-color: red;
+    } */
     .main-container{
         padding-top: 0;
     }
