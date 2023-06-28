@@ -42,7 +42,9 @@
     transform: rotate(0.91deg);
     padding-left: 5px;
 }
-
+.remove-content{
+    display: none;
+}
 .all-event-con>div:first-child{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;

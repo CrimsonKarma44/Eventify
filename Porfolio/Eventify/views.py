@@ -1,7 +1,7 @@
 import qrcode
 import io
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -14,6 +14,9 @@ from Ticket.models import Ticket
 from .forms import EventForm, ProfileUpdateForm, LoginForm, EventUpdateForm
 from .models import Event
 from django.core.files.storage import FileSystemStorage
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.core.serializers import serialize
 
 
 # Create your views here.
@@ -192,3 +195,12 @@ def eventTickets(request, id):
     event = Event.objects.get(id=id)
     context = {'tickets': tickets, 'title': title, 'event': event}
     return render(request, 'eventTickets.html', context)
+
+
+@csrf_exempt
+def searchEvent(request, query):
+    results = Event.objects.filter(name__icontains=query)
+    json_data = serialize('json', results)
+    parsed_data = json.loads(json_data)
+    # print(json_data)
+    return JsonResponse(parsed_data, safe=False)

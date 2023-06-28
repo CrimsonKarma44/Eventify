@@ -18,5 +18,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('all_events/', views.allEvents, name='all_events'),
     path('get_tickets/<int:id>/', views.eventTickets, name='viewEventTickets'),
+    path('api/events/search/<str:query>', views.searchEvent, name='searchEvent')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
