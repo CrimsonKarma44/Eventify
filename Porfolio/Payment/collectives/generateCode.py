@@ -7,7 +7,7 @@ class GenerateCode:
 
     def genQRCode(email, eventName, amountPaid, code, ticketName, quantity ):
         # generate qrcode
-        url = 'http://192.168.0.112:8000/payment/present/{}/{}/'.format(email, code)
+        url = 'http://192.168.103.148:8000/payment/present/{}/{}/'.format(email, code)
         data = {
             'Event': eventName,
             'Amount': (amountPaid / int(quantity)),

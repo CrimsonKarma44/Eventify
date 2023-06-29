@@ -43,7 +43,7 @@ def make_payment(request, id):
     # totalAmount = str(totalAmount)+".00"
     tx_ref = request.POST.get('tx_ref')
     ticket_id = request.POST.get('ticket_id')
-    redirect_url = "http://192.168.0.112:8000/payment/callback/{}".format(
+    redirect_url = "http://192.168.103.148:8000/payment/callback/{}".format(
         event.user.id)
     userData = {
         'email': email,

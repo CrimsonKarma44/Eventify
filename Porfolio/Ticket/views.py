@@ -66,7 +66,6 @@ def searchTicket(request, query):
     results = Ticket.objects.filter(name__icontains=query)
     json_data = serialize('json', results)
     parsed_data = json.loads(json_data)
-    data = {}
     for obj in parsed_data:
         # print(obj['fields']['event_id'])
         event = Event.objects.get(id=obj['fields']['event_id'])
@@ -76,5 +75,5 @@ def searchTicket(request, query):
         # print(obj)
     updated_json_data = json.dumps(parsed_data)
     updated_parsed_data = json.loads(updated_json_data)
-    print(updated_parsed_data)
+    # print(updated_parsed_data)
     return JsonResponse(updated_parsed_data, safe=False)
