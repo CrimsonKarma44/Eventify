@@ -3,11 +3,14 @@
    
    <hr />
    <div class="form-group">
-      <input type="text" class="form-control" id="search-ticket" placeholder="Search ticket" />
+      <input type="text" class="form-control" id="search-ticket" placeholder="Search ticket by name" />
    </div>
    <hr />
    <h2 class="tickets-heading">Tickets:</h2>
-   <div class="allticket-main">
+   <div class="allticket-main" id="ticket-main-content">
+    
+   </div>
+   <div class="allticket-main" id="main-ticket-container">
        {% for ticket in tickets %}
           <div class="col-xs-12 col-md-6 col-sm-12 inside-allticket pt-2">
              <div class="allticket-left">
@@ -22,7 +25,6 @@
                 {% endif %}
              </div>
              <div class="allticket-right" style="background-image:url('{{ticket.event_id.img.url}}');">
-                {% comment %} <img src="{% url 'event.img.url' %}" /> {% endcomment %}
              </div>
           </div>
        {% empty %}

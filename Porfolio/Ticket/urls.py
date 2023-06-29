@@ -9,4 +9,5 @@ urlpatterns = [
     path('create/<str:event_name>/', views.create_ticket, name='create_ticket'),
     path('update/<int:id>/', views.update_ticket, name='update_ticket'),
     path('delete/<int:id>/', views.delete_ticket, name='delete_ticket'),
+    path('api/search/<str:query>', views.searchTicket, name='searchTicket'),
 ]

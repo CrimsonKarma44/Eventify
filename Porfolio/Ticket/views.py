@@ -3,6 +3,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Ticket, Event
 from .forms import TicketCreationForm, TicketUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.core.serializers import serialize
+from django.http import JsonResponse
 
 
 def purchaseTicket(request, id):
@@ -55,3 +59,22 @@ def delete_ticket(request, id):
     ticket.delete()
     event = Event.objects.get(name=ticket.event_id)
     return redirect('viewEventTickets', id=event.id)
+
+
+@csrf_exempt
+def searchTicket(request, query):
+    results = Ticket.objects.filter(name__icontains=query)
+    json_data = serialize('json', results)
+    parsed_data = json.loads(json_data)
+    data = {}
+    for obj in parsed_data:
+        # print(obj['fields']['event_id'])
+        event = Event.objects.get(id=obj['fields']['event_id'])
+        img = str(event.img)
+        # print(img)
+        obj['fields']['img'] = img
+        # print(obj)
+    updated_json_data = json.dumps(parsed_data)
+    updated_parsed_data = json.loads(updated_json_data)
+    print(updated_parsed_data)
+    return JsonResponse(updated_parsed_data, safe=False)
